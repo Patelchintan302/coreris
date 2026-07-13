@@ -12,7 +12,7 @@ import java.net.URI;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/appointment")
+@RequestMapping("/appointments")
 @RestController
 public class AppointmentController {
     private final AppointmentService appointmentService;
