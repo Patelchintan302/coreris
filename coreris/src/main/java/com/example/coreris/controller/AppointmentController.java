@@ -28,7 +28,7 @@ public class AppointmentController {
 
     @PostMapping
     public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appointment){
-        Appointment newAppointment = appointmentService.createAppoinment(appointment);
+        Appointment newAppointment = appointmentService.createAppointment(appointment);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

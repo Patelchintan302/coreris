@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,15 +31,15 @@ public class Patient {
     private Long mobileNo;
 
     @Builder.Default
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Appointment> appointments = new ArrayList<>();
-//
-//    @Column
-//    private Instant dob;
-//
-//    @Column
-//    private String gender;
-//
+
+    @Column
+    private LocalDate dob;
+
+    @Column
+    private String gender;
+
     @Enumerated(EnumType.STRING)
     private BloodGroupType bloodGroup;
 

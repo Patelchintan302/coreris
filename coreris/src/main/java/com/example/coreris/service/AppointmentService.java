@@ -1,7 +1,7 @@
 package com.example.coreris.service;
 
 import com.example.coreris.entity.Appointment;
-import com.example.coreris.exception_handler.AppoinmentNotFoundException;
+import com.example.coreris.exception_handler.AppointmentNotFoundException;
 import com.example.coreris.exception_handler.PatientNotFoundException;
 import com.example.coreris.repository.AppointmentRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,15 +20,15 @@ public class AppointmentService {
     }
 
     public Appointment getAppointmentById(Long id){
-        return appointmentRepository.findById(id).orElseThrow(() -> new AppoinmentNotFoundException(id));
+        return appointmentRepository.findById(id).orElseThrow(() -> new AppointmentNotFoundException(id));
     }
 
-    public Appointment createAppoinment(Appointment appointment){
+    public Appointment createAppointment(Appointment appointment){
         return appointmentRepository.save(appointment);
     }
 
     public void deleteAppointment(long id){
-        appointmentRepository.findById(id).orElseThrow(() -> new AppoinmentNotFoundException(id));
+        appointmentRepository.findById(id).orElseThrow(() -> new AppointmentNotFoundException(id));
         appointmentRepository.deleteById(id);
     }
 

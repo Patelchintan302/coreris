@@ -24,7 +24,7 @@ public class Radiologist {
     private User user;
 
     @Builder.Default
-    @OneToMany(mappedBy = "radiologist",cascade = {CascadeType.REMOVE},orphanRemoval = true,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "radiologist",cascade = {CascadeType.REMOVE},orphanRemoval = true,fetch = FetchType.LAZY)
     private List<Report> report = new ArrayList<>();
 
 }

@@ -21,7 +21,7 @@ public class PatientController {
 
     @GetMapping
     public ResponseEntity<List<PatientDto>> getAllPatients(){
-        return ResponseEntity.ok(patientService.getAllPatents());
+        return ResponseEntity.ok(patientService.getAllPatients());
     }
 
     @PostMapping

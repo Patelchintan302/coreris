@@ -24,7 +24,7 @@ public class Technician {
     private User user;
 
     @Builder.Default
-    @OneToMany(mappedBy = "technician",cascade = {CascadeType.REMOVE},orphanRemoval = true,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "technician",cascade = {CascadeType.REMOVE},orphanRemoval = true,fetch = FetchType.LAZY)
     private List<ScanResult> scanResults = new ArrayList<>();
 //
 //    @OneToMany

@@ -19,7 +19,7 @@ public class PatientService {
     private final PatientRepository patientRepository;
     private final ModelMapper modelMapper;
     @Transactional
-    public List<PatientDto> getAllPatents(){
+    public List<PatientDto> getAllPatients(){
         return patientRepository.findAll()
                 .stream()
                 .map(patient -> modelMapper.map(patient, PatientDto.class))
