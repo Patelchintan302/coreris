@@ -1,10 +1,8 @@
 package com.example.coreris.controller;
 
 import com.example.coreris.dto.PatientDto;
-import com.example.coreris.entity.Patient;
 import com.example.coreris.service.PatientService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,7 +23,7 @@ public class PatientController {
     }
 
     @PostMapping
-    public ResponseEntity<PatientDto> createPatient(@RequestBody Patient patient){
+    public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patient){
         PatientDto newPatient = patientService.createPatient(patient);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()

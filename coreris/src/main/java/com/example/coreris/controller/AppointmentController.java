@@ -1,9 +1,9 @@
 package com.example.coreris.controller;
 
+import com.example.coreris.dto.AppointmentDto;
 import com.example.coreris.entity.Appointment;
 import com.example.coreris.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,17 +18,17 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
 
     @GetMapping
-    public ResponseEntity<List<Appointment>> getAllAppointment(){
+    public ResponseEntity<List<AppointmentDto>> getAllAppointment(){
         return ResponseEntity.ok(appointmentService.getAllAppointment());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Appointment> getAppointmentById(@PathVariable long id){
+    public ResponseEntity<AppointmentDto> getAppointmentById(@PathVariable long id){
         return ResponseEntity.ok(appointmentService.getAppointmentById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appointment){
-        Appointment newAppointment = appointmentService.createAppointment(appointment);
+    public ResponseEntity<AppointmentDto> createAppointment(@RequestBody Appointment appointment){
+        AppointmentDto newAppointment = appointmentService.createAppointment(appointment);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

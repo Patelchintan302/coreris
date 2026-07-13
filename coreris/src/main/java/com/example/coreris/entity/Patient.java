@@ -1,7 +1,6 @@
 package com.example.coreris.entity;
 
 import com.example.coreris.entity.type.BloodGroupType;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 

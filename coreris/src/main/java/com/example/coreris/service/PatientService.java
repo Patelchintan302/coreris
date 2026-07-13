@@ -32,8 +32,8 @@ public class PatientService {
         return modelMapper.map(patient,PatientDto.class);
     }
     @Transactional
-    public PatientDto createPatient(Patient patient){
-        Patient save = patientRepository.save(patient);
+    public PatientDto createPatient(PatientDto patientDto){
+        Patient save = patientRepository.save(modelMapper.map(patientDto,Patient.class));
         return modelMapper.map(save,PatientDto.class);
     }
     @Transactional

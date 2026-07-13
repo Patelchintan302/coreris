@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class AppointmentDto {
-    private long id;
+    private Long id;
     private LocalDateTime appointmentTime;
-    private PatientDto patientDto;
+    private PatientDto patient;
 }
