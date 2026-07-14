@@ -4,6 +4,7 @@ import com.example.coreris.dto.AppointmentDto;
 import com.example.coreris.entity.Appointment;
 import com.example.coreris.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -27,8 +28,8 @@ public class AppointmentController {
     }
 
     @PostMapping
-    public ResponseEntity<AppointmentDto> createAppointment(@RequestBody Appointment appointment){
-        AppointmentDto newAppointment = appointmentService.createAppointment(appointment);
+    public ResponseEntity<AppointmentDto> createAppointment(@RequestBody AppointmentDto appointmentDto){
+        AppointmentDto newAppointment = appointmentService.createAppointment(appointmentDto);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

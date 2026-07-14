@@ -16,23 +16,23 @@ import java.util.stream.Collectors;
 public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
-    private final ModelMapper modelmapper;
+    private final ModelMapper modelMapper;
 
     public List<AppointmentDto> getAllAppointment(){
         return appointmentRepository.findAll()
                 .stream()
-                .map(app -> modelmapper.map(app,AppointmentDto.class))
+                .map(app -> modelMapper.map(app,AppointmentDto.class))
                 .collect(Collectors.toList());
     }
 
     public AppointmentDto getAppointmentById(Long id){
         Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -> new AppointmentNotFoundException(id));
-        return modelmapper.map(appointment,AppointmentDto.class);
+        return modelMapper.map(appointment,AppointmentDto.class);
     }
 
-    public AppointmentDto createAppointment(Appointment appointment){
-        Appointment save = appointmentRepository.save(appointment);
-        return modelmapper.map(save,AppointmentDto.class);
+    public AppointmentDto createAppointment(AppointmentDto appointment){
+        Appointment save = appointmentRepository.save(modelMapper.map(appointment,Appointment.class));
+        return modelMapper.map(save,AppointmentDto.class);
     }
 
     public void deleteAppointment(long id){
