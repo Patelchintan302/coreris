@@ -1,10 +1,10 @@
 package com.example.coreris.controller;
 
+import com.example.coreris.dto.AppointmentCreateDto;
 import com.example.coreris.dto.AppointmentDto;
-import com.example.coreris.entity.Appointment;
 import com.example.coreris.service.AppointmentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,7 +28,7 @@ public class AppointmentController {
     }
 
     @PostMapping
-    public ResponseEntity<AppointmentDto> createAppointment(@RequestBody AppointmentDto appointmentDto){
+    public ResponseEntity<AppointmentDto> createAppointment(@Valid @RequestBody AppointmentCreateDto appointmentDto){
         AppointmentDto newAppointment = appointmentService.createAppointment(appointmentDto);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
