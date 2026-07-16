@@ -22,5 +22,5 @@ public class Report {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
-    private Radiologist radiologist;
+    private Radiologists radiologist;
 }

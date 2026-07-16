@@ -3,16 +3,13 @@ package com.example.coreris.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Setter
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Radiologist {
+public class Receptionists {
     @Id
     private Long id;
 
@@ -23,8 +20,5 @@ public class Radiologist {
     @JoinColumn(name = "id")
     private User user;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "radiologist",cascade = {CascadeType.REMOVE},orphanRemoval = true,fetch = FetchType.LAZY)
-    private List<Report> report = new ArrayList<>();
 
 }

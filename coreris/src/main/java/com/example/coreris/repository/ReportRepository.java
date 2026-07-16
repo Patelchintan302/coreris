@@ -1,9 +1,9 @@
 package com.example.coreris.repository;
 
-import com.example.coreris.entity.Radiologist;
+import com.example.coreris.entity.Report;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RadiologistRepository extends JpaRepository<Radiologist, Long> {
+public interface ReportRepository extends JpaRepository<Report, Long> {
 }

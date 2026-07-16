@@ -12,9 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Technician {
+public class Radiologists {
     @Id
-    private long id;
+    private Long id;
 
     private String name;
 
@@ -24,9 +24,7 @@ public class Technician {
     private User user;
 
     @Builder.Default
-    @OneToMany(mappedBy = "technician",cascade = {CascadeType.REMOVE},orphanRemoval = true,fetch = FetchType.LAZY)
-    private List<ScanResult> scanResults = new ArrayList<>();
-//
-//    @OneToMany
-//    private List<Appointment> appointments = new ArrayList<>();
+    @OneToMany(mappedBy = "radiologist",cascade = {CascadeType.REMOVE},orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<Report> report = new ArrayList<>();
+
 }

@@ -22,5 +22,5 @@ public class ScanResult {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
-    private Technician technician;
+    private Technicians technician;
 }
