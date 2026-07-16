@@ -10,8 +10,8 @@ import java.util.List;
 @Getter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor
 public class Radiologists {
     @Id
     private Long id;

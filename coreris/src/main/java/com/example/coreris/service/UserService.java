@@ -1,6 +1,5 @@
 package com.example.coreris.service;
 
-import com.example.coreris.dto.RadiologistDto;
 import com.example.coreris.dto.UserDto;
 import com.example.coreris.entity.Radiologists;
 import com.example.coreris.entity.Receptionists;
@@ -27,7 +26,7 @@ public class UserService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    private UserDto createUser(UserDto userDto){
+    public UserDto createUser(UserDto userDto){
         User user = modelMapper.map(userDto,User.class);
         User savedUser = userRepository.save(user);
         if(userDto.getRole() == RoleType.RECEPTIONIST){
