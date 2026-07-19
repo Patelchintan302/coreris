@@ -19,4 +19,14 @@ public class User {
     @Enumerated(EnumType.STRING)
     private RoleType role;
 
+    @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE,orphanRemoval = true)
+    private Receptionists receptionist;
+
+    @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE,orphanRemoval = true)
+    private Technicians technician;
+
+    @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE,orphanRemoval = true)
+    private Radiologists radiologist;
+
+
 }
