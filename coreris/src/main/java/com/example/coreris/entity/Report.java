@@ -18,7 +18,7 @@ public class Report {
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")
-    private ScanResult scanResult;
+    private Appointment appointment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
