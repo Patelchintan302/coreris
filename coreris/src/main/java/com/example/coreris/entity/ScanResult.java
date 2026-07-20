@@ -3,6 +3,8 @@ package com.example.coreris.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Setter
 @Getter
 @Builder
@@ -11,16 +13,27 @@ import lombok.*;
 @Entity
 public class ScanResult {
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String scan;
+    private String scanDetails;
+    private String imageUrl;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime capturedAt;
 
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
+    @ToString.Exclude
+    @JoinColumn(name = "appointment_id", nullable = false, unique = true)
     private Appointment appointment;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @ToString.Exclude
+    @JoinColumn(name = "technician_id", nullable = false)
     private Technicians technician;
+
+    @PrePersist
+    protected void onCreate() {
+        this.capturedAt = LocalDateTime.now();
+    }
 }

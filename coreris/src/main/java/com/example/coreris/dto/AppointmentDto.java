@@ -8,5 +8,6 @@ import java.time.LocalDateTime;
 public class AppointmentDto {
     private Long id;
     private LocalDateTime appointmentTime;
+    private LocalDateTime createdAt;
     private PatientDto patient;
 }

@@ -24,13 +24,26 @@ public class Appointment {
     private LocalDateTime appointmentTime;
 
 
+    @Column(nullable = false, updatable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime createdAt;
+
     @ManyToOne
     @ToString.Exclude
     @JoinColumn(name = "patient_id", nullable = false)
     @JsonIgnoreProperties("appointments")
     private Patient patient;
 
+    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private ScanResult scanResult;
 
+    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private Report report;
 
-
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 }
