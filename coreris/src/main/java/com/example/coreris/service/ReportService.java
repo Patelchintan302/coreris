@@ -6,6 +6,7 @@ import com.example.coreris.entity.Appointment;
 import com.example.coreris.entity.Radiologists;
 import com.example.coreris.entity.Report;
 import com.example.coreris.exception_handler.AppointmentNotFoundException;
+import com.example.coreris.exception_handler.ReportNotFoundException;
 import com.example.coreris.exception_handler.UserNotFoundException;
 import com.example.coreris.repository.AppointmentRepository;
 import com.example.coreris.repository.RadiologistsRepository;
@@ -43,6 +44,20 @@ public class ReportService {
         return reportDto;
     }
 
+    public ReportDto getReportById(Long id) {
+        Report report = reportRepository.findById(id).orElseThrow(() -> new ReportNotFoundException(id));
+        ReportDto reportDto = modelMapper.map(report, ReportDto.class);
+        reportDto.setAppointmentId(report.getAppointment().getId());
+        return reportDto;
+    }
+
+    public ReportDto getReportByAppointmentId(Long appointmentId){
+        appointmentRepository.findById(appointmentId).orElseThrow(() -> new AppointmentNotFoundException(appointmentId));
+        Report report = reportRepository.findByAppointmentId(appointmentId).orElseThrow(() -> new ReportNotFoundException("Report not found with AppointmentId : " + appointmentId));
+        ReportDto reportDto = modelMapper.map(report, ReportDto.class);
+        reportDto.setAppointmentId(appointmentId);
+        return reportDto;
+    }
 
 
 }
