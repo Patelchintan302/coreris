@@ -12,8 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReportCreateDto {
-    @NotNull(message = "Radiologist ID is required")
-    private Long radiologistId;
     @NotBlank(message = "Finding is Required")
     private String finding;
 

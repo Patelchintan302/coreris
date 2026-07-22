@@ -20,18 +20,18 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ReportService {
     private final ReportRepository reportRepository;
-    private final ModelMapper modelMapper;
     private final AppointmentRepository appointmentRepository;
     private final RadiologistsRepository radiologistsRepository;
+    private final ModelMapper modelMapper;
 
     @Transactional
-    public ReportDto createReport(Long appointmentId, ReportCreateDto reportCreateDto) {
+    public ReportDto createReport(Long appointmentId, Long radiologistId,ReportCreateDto reportCreateDto) {
         Appointment appointment = appointmentRepository
                 .findById(appointmentId)
                 .orElseThrow(() -> new AppointmentNotFoundException(appointmentId));
         Radiologists radiologist = radiologistsRepository
-                .findById(reportCreateDto.getRadiologistId())
-                .orElseThrow(() -> new UserNotFoundException(reportCreateDto.getRadiologistId()));
+                .findById(radiologistId)
+                .orElseThrow(() -> new UserNotFoundException(radiologistId));
 
         Report report = Report.builder()
                 .finding(reportCreateDto.getFinding())
