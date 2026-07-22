@@ -1,7 +1,6 @@
 package com.example.coreris.dto;
 
 import lombok.*;
-
 import java.time.LocalDateTime;
 
 @Data
