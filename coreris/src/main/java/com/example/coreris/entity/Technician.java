@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Technicians {
+public class Technician {
     @Id
     private long id;
 

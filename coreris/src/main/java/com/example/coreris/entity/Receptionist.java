@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Receptionists {
+public class Receptionist {
     @Id
     private Long id;
 

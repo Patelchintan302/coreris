@@ -1,8 +1,8 @@
 package com.example.coreris.service;
 
 import com.example.coreris.dto.ReceptionistDto;
-import com.example.coreris.entity.Receptionists;
-import com.example.coreris.repository.ReceptionistsRepository;
+import com.example.coreris.entity.Receptionist;
+import com.example.coreris.repository.ReceptionistRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -14,20 +14,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ReceptionistService {
     private final ModelMapper modelMapper;
-    private final ReceptionistsRepository receptionistsRepository;
+    private final ReceptionistRepository receptionistRepository;
 
     public List<ReceptionistDto> getAllReceptionists(){
-        return receptionistsRepository.findAll()
+        return receptionistRepository.findAll()
                 .stream()
                 .map(r -> modelMapper.map(r,ReceptionistDto.class))
                 .collect(Collectors.toList());
     }
 
     public ReceptionistDto updateReceptionist(Long id,ReceptionistDto dto){
-        Receptionists receptionist = receptionistsRepository.findById(id)
+        Receptionist receptionist = receptionistRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Receptionist with id "+id+" not found"));
         receptionist.setName(dto.getName());
-        Receptionists saved  = receptionistsRepository.save(receptionist);
+        Receptionist saved  = receptionistRepository.save(receptionist);
         return modelMapper.map(saved,ReceptionistDto.class);
     }
 }

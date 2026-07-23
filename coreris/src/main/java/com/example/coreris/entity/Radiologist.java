@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @NoArgsConstructor
-public class Radiologists {
+public class Radiologist {
     @Id
     private Long id;
 

@@ -8,7 +8,7 @@ import com.example.coreris.exception_handler.ScanResultNotFoundException;
 import com.example.coreris.exception_handler.UserNotFoundException;
 import com.example.coreris.repository.AppointmentRepository;
 import com.example.coreris.repository.ScanResultRepository;
-import com.example.coreris.repository.TechniciansRepository;
+import com.example.coreris.repository.TechnicianRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ScanResultService {
     private final ScanResultRepository scanResultRepository;
-    private final TechniciansRepository techniciansRepository;
+    private final TechnicianRepository technicianRepository;
     private final AppointmentRepository appointmentRepository;
     private final ModelMapper modelMapper;
 
@@ -27,7 +27,7 @@ public class ScanResultService {
         Appointment appointment = appointmentRepository
                 .findById(appointmentId)
                 .orElseThrow(() -> new AppointmentNotFoundException(appointmentId));
-        Technicians technician = techniciansRepository
+        Technician technician = technicianRepository
                 .findById(technicianId)
                 .orElseThrow(() -> new UserNotFoundException(technicianId));
 

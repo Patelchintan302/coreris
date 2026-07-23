@@ -3,13 +3,13 @@ package com.example.coreris.service;
 import com.example.coreris.dto.ReportCreateDto;
 import com.example.coreris.dto.ReportDto;
 import com.example.coreris.entity.Appointment;
-import com.example.coreris.entity.Radiologists;
+import com.example.coreris.entity.Radiologist;
 import com.example.coreris.entity.Report;
 import com.example.coreris.exception_handler.AppointmentNotFoundException;
 import com.example.coreris.exception_handler.ReportNotFoundException;
 import com.example.coreris.exception_handler.UserNotFoundException;
 import com.example.coreris.repository.AppointmentRepository;
-import com.example.coreris.repository.RadiologistsRepository;
+import com.example.coreris.repository.RadiologistRepository;
 import com.example.coreris.repository.ReportRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 public class ReportService {
     private final ReportRepository reportRepository;
     private final AppointmentRepository appointmentRepository;
-    private final RadiologistsRepository radiologistsRepository;
+    private final RadiologistRepository radiologistRepository;
     private final ModelMapper modelMapper;
 
     @Transactional
@@ -29,7 +29,7 @@ public class ReportService {
         Appointment appointment = appointmentRepository
                 .findById(appointmentId)
                 .orElseThrow(() -> new AppointmentNotFoundException(appointmentId));
-        Radiologists radiologist = radiologistsRepository
+        Radiologist radiologist = radiologistRepository
                 .findById(radiologistId)
                 .orElseThrow(() -> new UserNotFoundException(radiologistId));
 

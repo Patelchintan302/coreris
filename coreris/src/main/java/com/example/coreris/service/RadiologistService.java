@@ -1,8 +1,8 @@
 package com.example.coreris.service;
 
 import com.example.coreris.dto.RadiologistDto;
-import com.example.coreris.entity.Radiologists;
-import com.example.coreris.repository.RadiologistsRepository;
+import com.example.coreris.entity.Radiologist;
+import com.example.coreris.repository.RadiologistRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RadiologistService {
 
-    private final RadiologistsRepository radiologistRepository;
+    private final RadiologistRepository radiologistRepository;
     private final ModelMapper modelMapper;
 
     public List<RadiologistDto> getAllRadiologists() {
@@ -26,10 +26,10 @@ public class RadiologistService {
 
     @Transactional
     public RadiologistDto updateRadiologist(Long id, RadiologistDto dto) {
-        Radiologists radiologist = radiologistRepository.findById(id)
+        Radiologist radiologist = radiologistRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Radiologist not found with id: " + id));
         radiologist.setName(dto.getName());
-        Radiologists saved = radiologistRepository.save(radiologist);
+        Radiologist saved = radiologistRepository.save(radiologist);
         return modelMapper.map(saved, RadiologistDto.class);
     }
 }

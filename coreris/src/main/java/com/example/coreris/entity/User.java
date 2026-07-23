@@ -20,13 +20,13 @@ public class User {
     private RoleType role;
 
     @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE,orphanRemoval = true)
-    private Receptionists receptionist;
+    private Receptionist receptionist;
 
     @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE,orphanRemoval = true)
-    private Technicians technician;
+    private Technician technician;
 
     @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE,orphanRemoval = true)
-    private Radiologists radiologist;
+    private Radiologist radiologist;
 
 
 }

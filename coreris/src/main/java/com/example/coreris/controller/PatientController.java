@@ -1,6 +1,7 @@
 package com.example.coreris.controller;
 
 import com.example.coreris.dto.PatientDto;
+import com.example.coreris.dto.PatientHistoryDto;
 import com.example.coreris.service.PatientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -43,5 +44,11 @@ public class PatientController {
     @DeleteMapping("/{id}")
     public void deletePatient(@PathVariable long id){
         patientService.deletePatient(id);
+    }
+
+    @GetMapping("/{id}/history")
+    public ResponseEntity<PatientHistoryDto> getPatientHistory(@PathVariable long id){
+        PatientHistoryDto patientHistoryDto = patientService.getPatientHistory(id);
+        return ResponseEntity.ok(patientHistoryDto);
     }
 }

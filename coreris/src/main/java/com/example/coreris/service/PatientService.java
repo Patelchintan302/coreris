@@ -1,6 +1,6 @@
 package com.example.coreris.service;
 
-import com.example.coreris.dto.PatientDto;
+import com.example.coreris.dto.*;
 import com.example.coreris.entity.Patient;
 import com.example.coreris.exception_handler.PatientNotFoundException;
 import com.example.coreris.repository.PatientRepository;
@@ -40,6 +40,47 @@ public class PatientService {
     public void deletePatient(long id){
         patientRepository.findById(id).orElseThrow(() -> new PatientNotFoundException(id));
         patientRepository.deleteById(id);
+    }
+
+    @Transactional
+    public PatientHistoryDto getPatientHistory(long patientId){
+        Patient patient =  patientRepository.findById(patientId).orElseThrow(() -> new PatientNotFoundException(patientId));
+        List<AppointmentHistoryDto> appointmentHistory = patient.getAppointments().stream()
+                .map(appointment -> {
+                            ScanResultDto scanResult = appointment.getScanResult() != null ?
+                                    modelMapper.map(appointment.getScanResult(), ScanResultDto.class) : null;
+
+                            if(scanResult != null){
+                                scanResult.setAppointmentId(appointment.getId());
+                            }
+
+                            ReportDto report = appointment.getReport() != null ?
+                                    modelMapper.map(appointment.getReport(), ReportDto.class) : null;
+
+                            if(report != null){
+                                report.setAppointmentId(appointment.getId());
+                            }
+
+                            return AppointmentHistoryDto.builder()
+                                    .id(appointment.getId())
+                                    .createdAt(appointment.getCreatedAt())
+                                    .appointmentTime(appointment.getAppointmentTime())
+                                    .scanResult(scanResult)
+                                    .report(report)
+                                    .build();
+                        }
+                ).collect(Collectors.toList());
+
+        return PatientHistoryDto.builder()
+                .id(patient.getId())
+                .name(patient.getName())
+                .mobileNo(patient.getMobileNo())
+                .dob(patient.getDob())
+                .email(patient.getEmail())
+                .gender(patient.getGender())
+                .bloodGroup(patient.getBloodGroup())
+                .appointments(appointmentHistory)
+                .build();
     }
 
 

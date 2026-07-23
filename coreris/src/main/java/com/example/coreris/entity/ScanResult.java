@@ -30,7 +30,7 @@ public class ScanResult {
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     @JoinColumn(name = "technician_id", nullable = false)
-    private Technicians technician;
+    private Technician technician;
 
     @PrePersist
     protected void onCreate() {

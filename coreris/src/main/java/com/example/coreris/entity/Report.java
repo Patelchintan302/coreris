@@ -33,7 +33,7 @@ public class Report {
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     @JoinColumn(name = "radiologist_id", nullable = false)
-    private Radiologists radiologist;
+    private Radiologist radiologist;
 
     @PrePersist
     protected void onCreate() {
