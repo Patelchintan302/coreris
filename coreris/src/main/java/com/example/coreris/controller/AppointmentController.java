@@ -5,6 +5,10 @@ import com.example.coreris.dto.AppointmentDto;
 import com.example.coreris.service.AppointmentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,8 +23,10 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
 
     @GetMapping
-    public ResponseEntity<List<AppointmentDto>> getAllAppointment(){
-        return ResponseEntity.ok(appointmentService.getAllAppointment());
+    public ResponseEntity<Page<AppointmentDto>> getAllAppointment(
+            @PageableDefault(page = 0,size = 10,sort = "appointmentTime", direction = Sort.Direction.ASC) Pageable pageable
+    ){
+        return ResponseEntity.ok(appointmentService.getAllAppointment(pageable));
     }
     @GetMapping("/{id}")
     public ResponseEntity<AppointmentDto> getAppointmentById(@PathVariable long id){

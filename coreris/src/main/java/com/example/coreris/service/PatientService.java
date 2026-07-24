@@ -7,6 +7,8 @@ import com.example.coreris.repository.PatientRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +21,9 @@ public class PatientService {
     private final PatientRepository patientRepository;
     private final ModelMapper modelMapper;
     @Transactional
-    public List<PatientDto> getAllPatients(){
-        return patientRepository.findAll()
-                .stream()
-                .map(patient -> modelMapper.map(patient, PatientDto.class))
-                .collect(Collectors.toList());
+    public Page<PatientDto> getAllPatients(Pageable pageable){
+        return patientRepository.findAll(pageable)
+                .map(patient -> modelMapper.map(patient, PatientDto.class));
     }
 
     @Transactional

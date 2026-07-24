@@ -2,10 +2,15 @@ package com.example.coreris.dto;
 
 import com.example.coreris.entity.type.BloodGroupType;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class PatientDto {
 

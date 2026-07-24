@@ -10,11 +10,10 @@ import com.example.coreris.repository.PatientRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.example.coreris.dto.AppointmentDto;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,11 +23,9 @@ public class AppointmentService {
     private final PatientRepository patientRepository;
     private final ModelMapper modelMapper;
 
-    public List<AppointmentDto> getAllAppointment(){
-        return appointmentRepository.findAll()
-                .stream()
-                .map(app -> modelMapper.map(app,AppointmentDto.class))
-                .collect(Collectors.toList());
+    public Page<AppointmentDto> getAllAppointment(Pageable pageable){
+        return appointmentRepository.findAll(pageable)
+                .map(app -> modelMapper.map(app,AppointmentDto.class));
     }
 
     public AppointmentDto getAppointmentById(Long id){

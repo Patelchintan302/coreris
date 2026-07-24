@@ -5,12 +5,15 @@ import com.example.coreris.dto.PatientHistoryDto;
 import com.example.coreris.service.PatientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,8 +23,10 @@ public class PatientController {
     private final PatientService patientService;
 
     @GetMapping
-    public ResponseEntity<List<PatientDto>> getAllPatients(){
-        return ResponseEntity.ok(patientService.getAllPatients());
+    public ResponseEntity<Page<PatientDto>> getAllPatients(
+            @PageableDefault(page = 0,size = 10,sort = "id", direction = Sort.Direction.ASC) Pageable pageable
+    ){
+        return ResponseEntity.ok(patientService.getAllPatients(pageable));
     }
 
     @PostMapping
