@@ -3,6 +3,7 @@ package com.example.coreris.service;
 import com.example.coreris.dto.AppointmentCreateDto;
 import com.example.coreris.entity.Appointment;
 import com.example.coreris.entity.Patient;
+import com.example.coreris.entity.type.StatusType;
 import com.example.coreris.exception_handler.AppointmentNotFoundException;
 import com.example.coreris.exception_handler.PatientNotFoundException;
 import com.example.coreris.repository.AppointmentRepository;
@@ -44,9 +45,12 @@ public class AppointmentService {
         return modelMapper.map(save,AppointmentDto.class);
     }
 
-    public void deleteAppointment(long id){
-        appointmentRepository.findById(id).orElseThrow(() -> new AppointmentNotFoundException(id));
-        appointmentRepository.deleteById(id);
+    @Transactional
+    public AppointmentDto cancelAppointment(long id){
+        Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -> new AppointmentNotFoundException(id));
+        appointment.setStatus(StatusType.CANCELLED);
+        appointmentRepository.save(appointment);
+        return modelMapper.map(appointment,AppointmentDto.class);
     }
 
 }

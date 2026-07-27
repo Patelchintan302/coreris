@@ -1,5 +1,6 @@
 package com.example.coreris.dto;
 
+import com.example.coreris.entity.type.StatusType;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -20,4 +21,7 @@ public class AppointmentCreateDto {
 
     @NotNull(message = "Patient ID is required")
     private Long patientId;
+
+    private StatusType status; //status of appointment
+
 }

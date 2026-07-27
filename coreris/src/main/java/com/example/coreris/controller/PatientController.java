@@ -46,11 +46,6 @@ public class PatientController {
         return ResponseEntity.ok(patient);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletePatient(@PathVariable long id){
-        patientService.deletePatient(id);
-    }
-
     @GetMapping("/{id}/history")
     public ResponseEntity<PatientHistoryDto> getPatientHistory(@PathVariable long id){
         PatientHistoryDto patientHistoryDto = patientService.getPatientHistory(id);

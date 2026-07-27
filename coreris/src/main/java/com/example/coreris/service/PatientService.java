@@ -36,11 +36,6 @@ public class PatientService {
         Patient save = patientRepository.save(modelMapper.map(patientDto,Patient.class));
         return modelMapper.map(save,PatientDto.class);
     }
-    @Transactional
-    public void deletePatient(long id){
-        patientRepository.findById(id).orElseThrow(() -> new PatientNotFoundException(id));
-        patientRepository.deleteById(id);
-    }
 
     @Transactional
     public PatientHistoryDto getPatientHistory(long patientId){

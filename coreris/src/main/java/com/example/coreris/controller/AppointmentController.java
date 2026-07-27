@@ -44,8 +44,8 @@ public class AppointmentController {
 
         return ResponseEntity.created(location).body(newAppointment);
     }
-    @DeleteMapping("{id}")
-    public void deleteAppointment(@PathVariable long id){
-        appointmentService.deleteAppointment(id);
+    @PatchMapping("{id}")
+    public ResponseEntity<AppointmentDto> cancelAppointment(@PathVariable long id){
+        return ResponseEntity.ok(appointmentService.cancelAppointment(id));
     }
 }

@@ -1,5 +1,6 @@
 package com.example.coreris.entity;
 
+import com.example.coreris.entity.type.StatusType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -42,8 +43,16 @@ public class Appointment {
     @ToString.Exclude
     private Report report;
 
+    @Enumerated(EnumType.STRING)
+    private StatusType status;
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
+        if(status == null){
+            status = StatusType.PENDING;
+        }
     }
+
+
 }
