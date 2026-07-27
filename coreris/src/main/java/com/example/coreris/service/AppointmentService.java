@@ -44,6 +44,7 @@ public class AppointmentService {
                 .orElseThrow(() -> new PatientNotFoundException(appointmentDto.getPatientId()));
         Appointment appointment = Appointment.builder()
                 .appointmentTime(appointmentDto.getAppointmentTime())
+                .status(appointmentDto.getStatus())
                 .patient(patient)
                 .build();
         Appointment save = appointmentRepository.save(appointment);

@@ -3,6 +3,7 @@ package com.example.coreris.seeder;
 import com.example.coreris.dto.*;
 import com.example.coreris.entity.type.BloodGroupType;
 import com.example.coreris.entity.type.RoleType;
+import com.example.coreris.entity.type.StatusType;
 import com.example.coreris.repository.UserRepository;
 import com.example.coreris.service.*;
 import lombok.RequiredArgsConstructor;
@@ -61,6 +62,7 @@ public class DatabaseSeeder implements CommandLineRunner {
             AppointmentDto a2 = appointmentService.createAppointment(AppointmentCreateDto.builder()
                     .appointmentTime(LocalDateTime.now().plusDays(5))
                     .patientId(p2.getId())
+                    .status(StatusType.BOOKED)
                     .build()); // ID 2
 
             scanResultService.createScanResult(
