@@ -26,7 +26,7 @@ public class AppointmentController {
     public ResponseEntity<Page<AppointmentDto>> getAllAppointment(
             @PageableDefault(page = 0,size = 10,sort = "appointmentTime", direction = Sort.Direction.ASC) Pageable pageable
     ){
-        return ResponseEntity.ok(appointmentService.getAllAppointment(pageable));
+        return ResponseEntity.ok(appointmentService.getAllBookedAppointment(pageable));
     }
     @GetMapping("/{id}")
     public ResponseEntity<AppointmentDto> getAppointmentById(@PathVariable long id){
