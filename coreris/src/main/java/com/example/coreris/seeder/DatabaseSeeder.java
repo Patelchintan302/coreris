@@ -30,9 +30,24 @@ public class DatabaseSeeder implements CommandLineRunner {
             System.out.println(">>> Database is empty. Seeding realistic sample data...");
 
             // 1. Seed Staff Users (will automatically create corresponding profiles)
-            userService.createUser(UserDto.builder().name("Jane Tech").role(RoleType.TECHNICIAN).build()); // ID 1
-            userService.createUser(UserDto.builder().name("Dr. John Smith").role(RoleType.RADIOLOGIST).build()); // ID 2
-            userService.createUser(UserDto.builder().name("Alice Reception").role(RoleType.RECEPTIONIST).build()); // ID 3
+            userService.createUser(UserDto.builder()
+                    .name("Jane Tech")
+                    .role(RoleType.TECHNICIAN)
+                    .username("user1")
+                    .password("password1")
+                    .build()); // ID 1
+            userService.createUser(UserDto.builder()
+                    .name("Dr. John Smith")
+                    .role(RoleType.RADIOLOGIST)
+                    .username("user2")
+                    .password("password2")
+                    .build()); // ID 2
+            userService.createUser(UserDto.builder()
+                    .name("Alice Reception")
+                    .role(RoleType.RECEPTIONIST)
+                    .username("user3")
+                    .password("password3")
+                    .build()); // ID 3
 
             // 2. Seed Patients
             PatientDto p1 = patientService.createPatient(PatientDto.builder()

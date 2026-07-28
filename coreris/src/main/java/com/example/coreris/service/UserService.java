@@ -14,6 +14,7 @@ import com.example.coreris.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,10 +25,11 @@ public class UserService {
     private final TechnicianRepository technicianRepository;
     private final RadiologistRepository radiologistRepository;
     private final ModelMapper modelMapper;
-
+    private final PasswordEncoder passwordEncoder;
     @Transactional
     public UserDto createUser(UserDto userDto){
         User user = modelMapper.map(userDto,User.class);
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         User savedUser = userRepository.save(user);
         if(userDto.getRole() == RoleType.RECEPTIONIST){
             Receptionist receptionist = modelMapper.map(userDto, Receptionist.class);

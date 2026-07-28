@@ -17,4 +17,10 @@ public class UserDto {
 
     @NotBlank(message = "Name is Required")
     private String name;
+
+    @NotBlank(message = "Username id Required")
+    private String username;
+
+    @NotBlank(message = "password is Required")
+    private String password;
 }
