@@ -59,7 +59,7 @@ public class JwtService {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    //take token and extract all is claims ,runs resolvers functions to get exact date field ypu want.
+    //take token and extract all is claims ,runs resolvers functions to get exact date field you want.
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
         return claimsResolver.apply(extractAllClaims(token));
     }
@@ -72,7 +72,4 @@ public class JwtService {
                 .parseSignedClaims(token)
                 .getPayload();
     }
-
-
-
 }

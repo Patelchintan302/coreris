@@ -23,13 +23,15 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
+        //sp note :- authenticate the user using userDetailsService and check if user present in recode or DB and either give authentication object or throw exception
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
+                new UsernamePasswordAuthenticationToken( // sp note :- creating the token and sending it to authentication manager
                         loginRequestDto.getUsername(),
                         loginRequestDto.getPassword()
                 )
         );
 
+        //sp note :- gating UserDetails object from authentication
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
         String token = jwtService.generateToken(userDetails);
