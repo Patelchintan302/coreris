@@ -1,4 +1,4 @@
-package com.example.coreris.service;
+package com.example.coreris.security;
 
 
 import io.jsonwebtoken.Claims;

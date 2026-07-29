@@ -1,4 +1,4 @@
-package com.example.coreris.service;
+package com.example.coreris.security;
 
 import com.example.coreris.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

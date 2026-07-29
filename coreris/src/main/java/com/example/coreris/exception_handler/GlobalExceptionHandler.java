@@ -1,7 +1,7 @@
 package com.example.coreris.exception_handler;
 
 
-import com.example.coreris.dto.ErrorResponse;
+import com.example.coreris.dto.ErrorResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,19 +23,19 @@ public class GlobalExceptionHandler {
             ScanResultNotFoundException.class,
             ReportNotFoundException.class
     })
-    public ResponseEntity<ErrorResponse> handleNotFoundExceptions(RuntimeException ex, HttpServletRequest request) {
-        ErrorResponse errorResponse = ErrorResponse.builder()
+    public ResponseEntity<ErrorResponseDto> handleNotFoundExceptions(RuntimeException ex, HttpServletRequest request) {
+        ErrorResponseDto errorResponseDto = ErrorResponseDto.builder()
                 .timestamp(LocalDateTime.now())
                 .status(HttpStatus.NOT_FOUND.value())
                 .error(HttpStatus.NOT_FOUND.getReasonPhrase())
                 .message(ex.getMessage())
                 .path(request.getRequestURI())
                 .build();
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponseDto> handleValidationExceptions(MethodArgumentNotValidException ex, HttpServletRequest request) {
         Map<String, String> validationErrors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach(error -> {
             String fieldName = ((FieldError) error).getField();
@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
             validationErrors.put(fieldName, errorMessage);
         });
 
-        ErrorResponse errorResponse = ErrorResponse.builder()
+        ErrorResponseDto errorResponseDto = ErrorResponseDto.builder()
                 .timestamp(LocalDateTime.now())
                 .status(HttpStatus.BAD_REQUEST.value())
                 .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
@@ -51,12 +51,12 @@ public class GlobalExceptionHandler {
                 .path(request.getRequestURI())
                 .errors(validationErrors)
                 .build();
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGenericException(Exception ex, HttpServletRequest request) {
-        ErrorResponse errorResponse = ErrorResponse.builder()
+    public ResponseEntity<ErrorResponseDto> handleGenericException(Exception ex, HttpServletRequest request) {
+        ErrorResponseDto errorResponseDto = ErrorResponseDto.builder()
                 .timestamp(LocalDateTime.now())
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
@@ -64,7 +64,7 @@ public class GlobalExceptionHandler {
                 .path(request.getRequestURI())
                 .build();
 
-        return new ResponseEntity<>(errorResponse,HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errorResponseDto,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
