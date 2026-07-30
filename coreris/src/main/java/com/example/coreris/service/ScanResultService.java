@@ -3,6 +3,7 @@ package com.example.coreris.service;
 import com.example.coreris.dto.ScanResultCreateDto;
 import com.example.coreris.dto.ScanResultDto;
 import com.example.coreris.entity.*;
+import com.example.coreris.entity.type.StatusType;
 import com.example.coreris.exception_handler.AppointmentNotFoundException;
 import com.example.coreris.exception_handler.ScanResultNotFoundException;
 import com.example.coreris.exception_handler.UserNotFoundException;
@@ -37,6 +38,9 @@ public class ScanResultService {
                 .appointment(appointment)
                 .technician(technician)
                 .build();
+        //sp note:- status is changed now scan complete
+        appointment.setStatus(StatusType.SCAN_COMPLETE);
+        appointmentRepository.save(appointment);
         ScanResult savedScanResult = scanResultRepository.save(scanResult);
         ScanResultDto scanResultDto = modelMapper.map(savedScanResult, ScanResultDto.class);
         scanResultDto.setAppointmentId(appointmentId);

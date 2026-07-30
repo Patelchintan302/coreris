@@ -5,6 +5,7 @@ import com.example.coreris.dto.ReportDto;
 import com.example.coreris.entity.Appointment;
 import com.example.coreris.entity.Radiologist;
 import com.example.coreris.entity.Report;
+import com.example.coreris.entity.type.StatusType;
 import com.example.coreris.exception_handler.AppointmentNotFoundException;
 import com.example.coreris.exception_handler.ReportNotFoundException;
 import com.example.coreris.exception_handler.UserNotFoundException;
@@ -38,6 +39,9 @@ public class ReportService {
                 .appointment(appointment)
                 .radiologist(radiologist)
                 .build();
+        //sp note:- status is changed now completed
+        appointment.setStatus(StatusType.COMPLETED);
+        appointmentRepository.save(appointment);
         Report savedReport = reportRepository.save(report);
         ReportDto reportDto = modelMapper.map(savedReport, ReportDto.class);
         reportDto.setAppointmentId(appointmentId);
