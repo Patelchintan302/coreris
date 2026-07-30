@@ -29,6 +29,19 @@ public class AppointmentService {
                 .map(app -> modelMapper.map(app,AppointmentDto.class));
     }
 
+    public Page<AppointmentDto> getAllAppointmentByStatus(StatusType status, Pageable pageable){
+        return appointmentRepository.findByStatus(status,pageable)
+                .map(app -> modelMapper.map(app,AppointmentDto.class));
+    }
+
+    @Transactional
+    public AppointmentDto updateAppointmentStatus(long id, StatusType newStatus){
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new AppointmentNotFoundException(id));
+        appointment.setStatus(newStatus);
+        return modelMapper.map(appointmentRepository.save(appointment),AppointmentDto.class);
+    }
+
     public Page<AppointmentDto> getAllBookedAppointment(Pageable pageable){
         return appointmentRepository.findByStatus(StatusType.BOOKED,pageable)
                 .map(map -> modelMapper.map(map,AppointmentDto.class));
