@@ -5,6 +5,7 @@ import com.example.coreris.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -13,6 +14,7 @@ import java.net.URI;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
+@PreAuthorize("hasRole('ADMIN')") //sp note:- accessible to only admin
 public class UserController {
     private final UserService userService;
 
@@ -27,6 +29,7 @@ public class UserController {
         return ResponseEntity.created(location).body(createdUser);
     }
 
+    //sp note :- accessible to any authenticated user
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id){
         UserDto userDto = userService.getUserById(id);

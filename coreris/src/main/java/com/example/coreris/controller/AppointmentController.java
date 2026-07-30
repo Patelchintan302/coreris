@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,6 +23,7 @@ import java.net.URI;
 public class AppointmentController {
     private final AppointmentService appointmentService;
 
+    //sp note :- accessible to any authenticated user
     @GetMapping
     public ResponseEntity<Page<AppointmentDto>> getAllAppointment(
             @RequestParam(required = false) StatusType status,
@@ -32,12 +34,16 @@ public class AppointmentController {
         }
         return ResponseEntity.ok(appointmentService.getAllAppointment(pageable));
     }
+
+    //sp note :- accessible to any authenticated user
     @GetMapping("/{id}")
     public ResponseEntity<AppointmentDto> getAppointmentById(@PathVariable long id){
         return ResponseEntity.ok(appointmentService.getAppointmentById(id));
     }
 
+    //sp note :- accessible to only receptionist and admin
     @PostMapping
+    @PreAuthorize(("hasRole('RECEPTIONIST')"))
     public ResponseEntity<AppointmentDto> createAppointment(@Valid @RequestBody AppointmentCreateDto appointmentDto){
         AppointmentDto newAppointment = appointmentService.createAppointment(appointmentDto);
         URI location = ServletUriComponentsBuilder
@@ -48,12 +54,17 @@ public class AppointmentController {
 
         return ResponseEntity.created(location).body(newAppointment);
     }
+
+    //sp note :- accessible to only receptionist and admin
     @PatchMapping("{id}/cancel")
+    @PreAuthorize(("hasRole('RECEPTIONIST')"))
     public ResponseEntity<AppointmentDto> cancelAppointment(@PathVariable long id){
         return ResponseEntity.ok(appointmentService.cancelAppointment(id));
     }
 
+    //sp note :- accessible to only receptionist, technician, radiologist and admin
     @PatchMapping("/{id}/status")
+    @PreAuthorize(("hasAnyRole('RECEPTIONIST', 'TECHNICIAN', 'RADIOLOGIST')"))
     public ResponseEntity<AppointmentDto> updateStatus(
             @PathVariable long id,
             @RequestParam StatusType status

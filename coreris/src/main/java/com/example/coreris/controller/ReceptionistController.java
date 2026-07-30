@@ -13,11 +13,14 @@ import java.util.List;
 @RequestMapping("/receptionists")
 public class ReceptionistController {
     private final ReceptionistService receptionistService;
+
+    //sp note :- accessible to any authenticated user
     @GetMapping
     public ResponseEntity<List<ReceptionistDto>> getAllReceptionists(){
         return ResponseEntity.ok(receptionistService.getAllReceptionists());
     }
 
+    //sp note :- accessible to any authenticated user
     @PutMapping("/{id}")
     public ResponseEntity<ReceptionistDto> updateReceptionist(@PathVariable Long id,@RequestBody ReceptionistDto dto){
         return ResponseEntity.ok(receptionistService.updateReceptionist(id,dto));
