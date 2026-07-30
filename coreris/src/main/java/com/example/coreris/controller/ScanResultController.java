@@ -46,4 +46,15 @@ public class ScanResultController {
         return new ResponseEntity<>(createdScanResultDto, HttpStatus.CREATED);
     }
 
+    //sp note :- accessible to only technician and admin
+    @PutMapping("/appointments/{id}/scan")
+    @PreAuthorize("hasRole('TECHNICIAN')")
+    public ResponseEntity<ScanResultDto> updateScanResult(
+            @PathVariable("id") Long appointmentId,
+            @Valid @RequestBody ScanResultCreateDto scanResultCreateDto
+    ) {
+        ScanResultDto updated = scanResultService.updateScanResult(appointmentId, scanResultCreateDto);
+        return ResponseEntity.ok(updated);
+    }
+
 }

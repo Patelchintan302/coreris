@@ -63,5 +63,16 @@ public class ReportService {
         return reportDto;
     }
 
+    @Transactional
+    public ReportDto updateReport(Long appointmentId, ReportCreateDto reportCreateDto) {
+        Report report = reportRepository.findByAppointmentId(appointmentId)
+                .orElseThrow(() -> new ReportNotFoundException("Report not found for appointment: " + appointmentId));
+        report.setFinding(reportCreateDto.getFinding());
 
+        Report savedReport = reportRepository.save(report);
+
+        ReportDto reportDto = modelMapper.map(savedReport, ReportDto.class);
+        reportDto.setAppointmentId(appointmentId);
+        return reportDto;
+    }
 }

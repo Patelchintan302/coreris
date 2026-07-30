@@ -45,4 +45,15 @@ public class ReportController {
         ReportDto CreatedReportDto = reportService.createReport(appointmentId, radiologistId, reportCreateDto);
         return new ResponseEntity<>(CreatedReportDto,HttpStatus.CREATED);
     }
+
+    //sp note :- accessible to only radiologist and admin
+    @PutMapping("/appointments/{id}/report")
+    @PreAuthorize("hasRole('RADIOLOGIST')")
+    public ResponseEntity<ReportDto> updateReport(
+            @PathVariable("id") Long appointmentId,
+            @Valid @RequestBody ReportCreateDto reportCreateDto
+    ) {
+        ReportDto updated = reportService.updateReport(appointmentId, reportCreateDto);
+        return ResponseEntity.ok(updated);
+    }
 }

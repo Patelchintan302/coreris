@@ -62,5 +62,19 @@ public class ScanResultService {
         return scanResultDto;
     }
 
+    @Transactional
+    public ScanResultDto updateScanResult(Long appointmentId, ScanResultCreateDto scanResultCreateDto) {
+        ScanResult scanResult = scanResultRepository.findByAppointmentId(appointmentId)
+                .orElseThrow(() -> new ScanResultNotFoundException("Scan Result not found for appointment: " + appointmentId));
+        scanResult.setScanDetails(scanResultCreateDto.getScanDetails());
+        scanResult.setImageUrl(scanResultCreateDto.getImageUrl());
+
+        ScanResult savedScanResult = scanResultRepository.save(scanResult);
+
+        ScanResultDto scanResultDto = modelMapper.map(savedScanResult, ScanResultDto.class);
+        scanResultDto.setAppointmentId(appointmentId);
+        return scanResultDto;
+    }
+
 
 }
