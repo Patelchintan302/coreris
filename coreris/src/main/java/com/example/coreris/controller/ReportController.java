@@ -2,12 +2,14 @@ package com.example.coreris.controller;
 
 import com.example.coreris.dto.ReportCreateDto;
 import com.example.coreris.dto.ReportDto;
+import com.example.coreris.entity.User;
 import com.example.coreris.service.ReportService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -36,9 +38,10 @@ public class ReportController {
     @PreAuthorize("hasRole('RADIOLOGIST')")
     public ResponseEntity<ReportDto> createReport(
             @PathVariable("id") Long appointmentId,
-            @RequestParam("radiologistId") Long radiologistId,
+            @AuthenticationPrincipal User loggedInUser,
             @Valid @RequestBody ReportCreateDto reportCreateDto
     ){
+        Long radiologistId = loggedInUser.getId();
         ReportDto CreatedReportDto = reportService.createReport(appointmentId, radiologistId, reportCreateDto);
         return new ResponseEntity<>(CreatedReportDto,HttpStatus.CREATED);
     }

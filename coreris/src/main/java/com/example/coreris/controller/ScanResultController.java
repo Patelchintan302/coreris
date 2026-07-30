@@ -2,12 +2,14 @@ package com.example.coreris.controller;
 
 import com.example.coreris.dto.ScanResultCreateDto;
 import com.example.coreris.dto.ScanResultDto;
+import com.example.coreris.entity.User;
 import com.example.coreris.service.ScanResultService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,12 +35,13 @@ public class ScanResultController {
 
     //sp note :- accessible to only technician and admin
     @PostMapping("/appointments/{id}/scan")
-    @PreAuthorize(("hasRole('TECHNICIAN')"))
+    @PreAuthorize("hasRole('TECHNICIAN')")
     public ResponseEntity<ScanResultDto> createScanResult(
             @PathVariable("id") Long appointmentId,
-            @RequestParam("technicianId") Long technicianId,
+            @AuthenticationPrincipal User loggedInUser,
             @Valid @RequestBody ScanResultCreateDto scanResultCreateDto
     ){
+        Long technicianId = loggedInUser.getId();
         ScanResultDto createdScanResultDto = scanResultService.createScanResult(appointmentId, technicianId, scanResultCreateDto);
         return new ResponseEntity<>(createdScanResultDto, HttpStatus.CREATED);
     }
