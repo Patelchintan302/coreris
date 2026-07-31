@@ -1,5 +1,6 @@
 package com.example.coreris.dto;
 
+import com.example.coreris.entity.type.ScanType;
 import com.example.coreris.entity.type.StatusType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Data
 public class AppointmentDto {
     private Long id;
+    private ScanType scanType;
     private LocalDateTime appointmentTime;
     private LocalDateTime createdAt;
     private PatientDto patient;

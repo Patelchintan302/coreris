@@ -5,6 +5,7 @@ import com.example.coreris.dto.PatientHistoryDto;
 import com.example.coreris.service.PatientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -26,7 +27,7 @@ public class PatientController {
     //sp note :- accessible to any authenticated user
     @GetMapping
     public ResponseEntity<Page<PatientDto>> getAllPatients(
-            @PageableDefault(page = 0,size = 10,sort = "id", direction = Sort.Direction.ASC) Pageable pageable
+            @ParameterObject @PageableDefault(page = 0,size = 10,sort = "id", direction = Sort.Direction.ASC) Pageable pageable
     ){
         return ResponseEntity.ok(patientService.getAllPatients(pageable));
     }

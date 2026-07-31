@@ -58,6 +58,7 @@ public class PatientService {
 
                             return AppointmentHistoryDto.builder()
                                     .id(appointment.getId())
+                                    .scanType(appointment.getScanType())
                                     .createdAt(appointment.getCreatedAt())
                                     .appointmentTime(appointment.getAppointmentTime())
                                     .scanResult(scanResult)

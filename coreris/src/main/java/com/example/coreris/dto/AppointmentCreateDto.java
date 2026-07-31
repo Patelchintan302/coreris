@@ -1,5 +1,6 @@
 package com.example.coreris.dto;
 
+import com.example.coreris.entity.type.ScanType;
 import com.example.coreris.entity.type.StatusType;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
@@ -15,6 +16,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AppointmentCreateDto {
+    @NotNull(message = "Scan Type is required")
+    private ScanType scanType;
+
     @NotNull(message = "Appointment time is required")
     @Future(message = "Appointment time must be in the future")
     private LocalDateTime appointmentTime;

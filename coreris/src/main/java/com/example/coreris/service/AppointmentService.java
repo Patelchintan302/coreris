@@ -58,6 +58,7 @@ public class AppointmentService {
         Appointment appointment = Appointment.builder()
                 .appointmentTime(appointmentDto.getAppointmentTime())
                 .status(appointmentDto.getStatus())
+                .scanType(appointmentDto.getScanType())
                 .patient(patient)
                 .build();
         Appointment save = appointmentRepository.save(appointment);

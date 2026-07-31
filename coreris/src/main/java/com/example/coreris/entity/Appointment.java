@@ -1,5 +1,6 @@
 package com.example.coreris.entity;
 
+import com.example.coreris.entity.type.ScanType;
 import com.example.coreris.entity.type.StatusType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -20,10 +21,12 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private ScanType scanType;
+
     @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime appointmentTime;
-
 
     @Column(nullable = false, updatable = false)
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

@@ -3,6 +3,7 @@ package com.example.coreris.seeder;
 import com.example.coreris.dto.*;
 import com.example.coreris.entity.type.BloodGroupType;
 import com.example.coreris.entity.type.RoleType;
+import com.example.coreris.entity.type.ScanType;
 import com.example.coreris.entity.type.StatusType;
 import com.example.coreris.repository.UserRepository;
 import com.example.coreris.service.*;
@@ -48,6 +49,12 @@ public class DatabaseSeeder implements CommandLineRunner {
                     .username("user3")
                     .password("password3")
                     .build()); // ID 3
+            userService.createUser(UserDto.builder()
+                    .name("Chintan Patel")
+                    .role(RoleType.ADMIN)
+                    .username("user0")
+                    .password("password0")
+                    .build());
 
             // 2. Seed Patients
             PatientDto p1 = patientService.createPatient(PatientDto.builder()
@@ -72,13 +79,15 @@ public class DatabaseSeeder implements CommandLineRunner {
             AppointmentDto a1 = appointmentService.createAppointment(AppointmentCreateDto.builder()
                     .appointmentTime(LocalDateTime.now().plusDays(2))
                     .patientId(p1.getId())
+                    .scanType(ScanType.CT_SCAN)
                     .build()); // ID 1
 
             AppointmentDto a2 = appointmentService.createAppointment(AppointmentCreateDto.builder()
                     .appointmentTime(LocalDateTime.now().plusDays(5))
                     .patientId(p2.getId())
                     .status(StatusType.BOOKED)
-                    .build()); // ID 2
+                    .scanType(ScanType.XRAY_SCAN)
+                    .build());// ID 2
 
             scanResultService.createScanResult(
                     a1.getId(),

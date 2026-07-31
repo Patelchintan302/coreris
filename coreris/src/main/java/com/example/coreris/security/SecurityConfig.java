@@ -27,7 +27,12 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/auth/**").permitAll()
+                    .requestMatchers(
+                            "/auth/**",            // Public login/register
+                            "/v3/api-docs/**",     // Raw Swagger JSON/YAML
+                            "/swagger-ui/**",      // Swagger UI resources
+                            "/swagger-ui.html"     // Swagger UI console page
+                    ).permitAll()
                     .anyRequest().authenticated() // 1. Require authentication for everything
             )
             .sessionManagement(session -> session
