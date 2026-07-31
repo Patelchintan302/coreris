@@ -6,6 +6,7 @@ import com.example.coreris.entity.type.StatusType;
 import com.example.coreris.service.AppointmentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -27,7 +28,7 @@ public class AppointmentController {
     @GetMapping
     public ResponseEntity<Page<AppointmentDto>> getAllAppointment(
             @RequestParam(required = false) StatusType status,
-            @PageableDefault(page = 0,size = 10,sort = "appointmentTime", direction = Sort.Direction.ASC) Pageable pageable
+            @ParameterObject @PageableDefault(page = 0,size = 10,sort = "appointmentTime", direction = Sort.Direction.ASC) Pageable pageable
     ){
         if(status != null) {
             return ResponseEntity.ok(appointmentService.getAllAppointmentByStatus(status,pageable));
