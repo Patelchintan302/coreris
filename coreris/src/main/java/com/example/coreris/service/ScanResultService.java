@@ -14,6 +14,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import com.example.coreris.entity.type.RoleType;
+import com.example.coreris.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -22,9 +25,11 @@ public class ScanResultService {
     private final TechnicianRepository technicianRepository;
     private final AppointmentRepository appointmentRepository;
     private final ModelMapper modelMapper;
+    private final FileStorageService fileStorageService;
+    private final UserRepository userRepository;
 
     @Transactional
-    public ScanResultDto createScanResult(Long appointmentId, Long technicianId, ScanResultCreateDto scanResultCreateDto) {
+    public ScanResultDto createScanResult(Long appointmentId, Long technicianId, MultipartFile file, ScanResultCreateDto scanResultCreateDto) {
         Appointment appointment = appointmentRepository
                 .findById(appointmentId)
                 .orElseThrow(() -> new AppointmentNotFoundException(appointmentId));
@@ -32,10 +37,14 @@ public class ScanResultService {
                 .findById(technicianId)
                 .orElseThrow(() -> new UserNotFoundException(technicianId));
 
+        String fileName = fileStorageService.storeFile(file);
+        String fileDownloadUrl = "/scans/download/" + fileName;
+
+
         ScanResult scanResult = ScanResult.builder()
                 .scanDetails(scanResultCreateDto.getScanDetails())
-                .imageUrl(scanResultCreateDto.getImageUrl())
                 .appointment(appointment)
+                .imageUrl(fileDownloadUrl)
                 .technician(technician)
                 .build();
         //sp note:- status is changed now scan complete
@@ -76,5 +85,30 @@ public class ScanResultService {
         return scanResultDto;
     }
 
+    // 👈 ADD THIS OVERLOADED METHOD FOR THE DATABASE SEEDER (3 parameters)
+    @Transactional
+    public ScanResultDto createScanResult(Long appointmentId, Long technicianId, ScanResultCreateDto scanResultCreateDto) {
+        Appointment appointment = appointmentRepository
+                .findById(appointmentId)
+                .orElseThrow(() -> new AppointmentNotFoundException(appointmentId));
+        Technician technician = technicianRepository
+                .findById(technicianId)
+                .orElseThrow(() -> new UserNotFoundException(technicianId));
+
+        ScanResult scanResult = ScanResult.builder()
+                .scanDetails(scanResultCreateDto.getScanDetails())
+                .appointment(appointment)
+                .imageUrl(scanResultCreateDto.getImageUrl()) // 👈 Uses the mock URL from the DTO directly
+                .technician(technician)
+                .build();
+
+        appointment.setStatus(StatusType.SCAN_COMPLETE);
+        appointmentRepository.save(appointment);
+
+        ScanResult savedScanResult = scanResultRepository.save(scanResult);
+        ScanResultDto scanResultDto = modelMapper.map(savedScanResult, ScanResultDto.class);
+        scanResultDto.setAppointmentId(appointmentId);
+        return scanResultDto;
+    }
 
 }
