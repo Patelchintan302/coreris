@@ -29,7 +29,6 @@ public class UserController {
         return ResponseEntity.created(location).body(createdUser);
     }
 
-    //sp note :- accessible to any authenticated user
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id){
         UserDto userDto = userService.getUserById(id);
