@@ -80,4 +80,30 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponseDto,HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler(FileStorageException.class)
+    public ResponseEntity<ErrorResponseDto> handleFileStorageException(FileStorageException ex, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR; // Default to 500
+
+        String message = ex.getMessage() != null ? ex.getMessage().toLowerCase() : "";
+
+        // 1. If file does not exist, return 404 Not Found
+        if (message.contains("not found")) {
+            status = HttpStatus.NOT_FOUND;
+        }
+        // 2. If it's a security/traversal bypass attempt, return 400 Bad Request
+        else if (message.contains("invalid path") || message.contains("invalid filename")) {
+            status = HttpStatus.BAD_REQUEST;
+        }
+
+        ErrorResponseDto errorResponseDto = ErrorResponseDto.builder()
+                .timestamp(LocalDateTime.now())
+                .status(status.value())
+                .error(status.getReasonPhrase())
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+
+        return new ResponseEntity<>(errorResponseDto, status);
+    }
+
 }
