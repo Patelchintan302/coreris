@@ -14,10 +14,11 @@ import java.net.URI;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
-@PreAuthorize("hasRole('ADMIN')") //sp note:- accessible to only admin
 public class UserController {
     private final UserService userService;
 
+    //sp note:- accessible to only admin
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto){
         UserDto createdUser = userService.createUser((userDto));
@@ -29,6 +30,7 @@ public class UserController {
         return ResponseEntity.created(location).body(createdUser);
     }
 
+    //sp note :- accessible to any authenticated user
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id){
         UserDto userDto = userService.getUserById(id);
