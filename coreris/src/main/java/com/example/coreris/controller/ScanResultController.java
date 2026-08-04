@@ -73,19 +73,13 @@ public class ScanResultController {
     @GetMapping("/scans/download/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
         Resource resource = fileStorageService.loadFileAsResource(fileName);
-        String contentType = null;
-        try{
-            contentType =request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-        }catch(IOException e){
-
-        }
+        String contentType = request.getServletContext().getMimeType(fileName);
         if (contentType == null) {
             contentType = "application/octet-stream";
         }
 
         return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(contentType))
-                // "inline" allows the browser to render it directly (instead of downloading it as a file)
+                .contentType(MediaType.parseMediaType(contentType))  // "inline" allows the browser to render it directly (instead of downloading it as a file)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
