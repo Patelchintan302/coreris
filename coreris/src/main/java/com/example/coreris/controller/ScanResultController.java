@@ -62,9 +62,10 @@ public class ScanResultController {
     @PreAuthorize("hasRole('TECHNICIAN')")
     public ResponseEntity<ScanResultDto> updateScanResult(
             @PathVariable("id") Long appointmentId,
+            @RequestParam(value = "file", required = false) MultipartFile file,
             @Valid @RequestBody ScanResultCreateDto scanResultCreateDto
     ) {
-        ScanResultDto updated = scanResultService.updateScanResult(appointmentId, scanResultCreateDto);
+        ScanResultDto updated = scanResultService.updateScanResult(appointmentId, file, scanResultCreateDto);
         return ResponseEntity.ok(updated);
     }
 

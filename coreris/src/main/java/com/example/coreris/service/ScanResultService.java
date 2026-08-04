@@ -72,11 +72,19 @@ public class ScanResultService {
     }
 
     @Transactional
-    public ScanResultDto updateScanResult(Long appointmentId, ScanResultCreateDto scanResultCreateDto) {
+    public ScanResultDto updateScanResult(Long appointmentId, MultipartFile file, ScanResultCreateDto scanResultCreateDto) {
         ScanResult scanResult = scanResultRepository.findByAppointmentId(appointmentId)
                 .orElseThrow(() -> new ScanResultNotFoundException("Scan Result not found for appointment: " + appointmentId));
+        if(file != null && !file.isEmpty()){
+            String oldFileUrl = scanResult.getImageUrl();
+            if(oldFileUrl != null && oldFileUrl.contains("/scans/download/")){
+                String oldFileName = oldFileUrl.substring(oldFileUrl.lastIndexOf("/")+1);
+                fileStorageService.deleteFile(oldFileName);
+            }
+            String newFileName = fileStorageService.storeFile(file);
+            scanResult.setImageUrl(newFileName);
+        }
         scanResult.setScanDetails(scanResultCreateDto.getScanDetails());
-        scanResult.setImageUrl(scanResultCreateDto.getImageUrl());
 
         ScanResult savedScanResult = scanResultRepository.save(scanResult);
 

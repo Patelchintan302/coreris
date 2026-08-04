@@ -70,4 +70,15 @@ public class LocalFileStorageServiceImpl implements FileStorageService {
             throw new FileStorageException("File not found: " + fileName, ex);
         }
     }
+
+    @Override
+    public void deleteFile(String fileName){
+        try{
+            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+            Files.deleteIfExists(filePath);
+        } catch(IOException ex){
+            throw new FileStorageException("Could not delete file: " + fileName, ex);
+        }
+    }
+
 }
