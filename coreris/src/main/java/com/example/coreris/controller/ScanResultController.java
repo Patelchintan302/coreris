@@ -79,8 +79,8 @@ public class ScanResultController {
         }
 
         return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(contentType))  // "inline" allows the browser to render it directly (instead of downloading it as a file)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")  // "inline" allows the browser to render it directly (instead of downloading it as a file)
                 .body(resource);
     }
 
