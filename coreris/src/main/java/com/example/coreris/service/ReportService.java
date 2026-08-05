@@ -14,11 +14,13 @@ import com.example.coreris.repository.RadiologistRepository;
 import com.example.coreris.repository.ReportRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ReportService {
     private final ReportRepository reportRepository;
     private final AppointmentRepository appointmentRepository;
@@ -27,6 +29,9 @@ public class ReportService {
 
     @Transactional
     public ReportDto createReport(Long appointmentId, Long radiologistId,ReportCreateDto reportCreateDto) {
+
+        log.info("Radiologist ID {} trying to submit diagnostic report for Appointment ID: {}", radiologistId, appointmentId);
+
         Appointment appointment = appointmentRepository
                 .findById(appointmentId)
                 .orElseThrow(() -> new AppointmentNotFoundException(appointmentId));
@@ -45,26 +50,44 @@ public class ReportService {
         Report savedReport = reportRepository.save(report);
         ReportDto reportDto = modelMapper.map(savedReport, ReportDto.class);
         reportDto.setAppointmentId(appointmentId);
+
+        log.info("submitted diagnostic report for Appointment ID: {}", appointmentId);
+
         return reportDto;
     }
 
     public ReportDto getReportById(Long id) {
+
+        log.debug("trying to Fetch details of diagnostic report ID: {}", id);
+
         Report report = reportRepository.findById(id).orElseThrow(() -> new ReportNotFoundException(id));
         ReportDto reportDto = modelMapper.map(report, ReportDto.class);
         reportDto.setAppointmentId(report.getAppointment().getId());
+
+        log.debug("Fetching details of diagnostic report ID: {}", id);
+
         return reportDto;
     }
 
     public ReportDto getReportByAppointmentId(Long appointmentId){
+
+        log.debug("trying to Fetch diagnostic report details for Appointment ID: {}", appointmentId);
+
         appointmentRepository.findById(appointmentId).orElseThrow(() -> new AppointmentNotFoundException(appointmentId));
         Report report = reportRepository.findByAppointmentId(appointmentId).orElseThrow(() -> new ReportNotFoundException("Report not found with AppointmentId : " + appointmentId));
         ReportDto reportDto = modelMapper.map(report, ReportDto.class);
         reportDto.setAppointmentId(appointmentId);
+
+        log.debug("Fetching diagnostic report details for Appointment ID: {}", appointmentId);
+
         return reportDto;
     }
 
     @Transactional
     public ReportDto updateReport(Long appointmentId, ReportCreateDto reportCreateDto) {
+
+        log.info("Radiologist trying to update diagnostic report for Appointment ID: {}", appointmentId);
+
         Report report = reportRepository.findByAppointmentId(appointmentId)
                 .orElseThrow(() -> new ReportNotFoundException("Report not found for appointment: " + appointmentId));
         report.setFinding(reportCreateDto.getFinding());
@@ -73,6 +96,9 @@ public class ReportService {
 
         ReportDto reportDto = modelMapper.map(savedReport, ReportDto.class);
         reportDto.setAppointmentId(appointmentId);
+
+        log.info("Radiologist updated diagnostic report for Appointment ID: {}", appointmentId);
+
         return reportDto;
     }
 }

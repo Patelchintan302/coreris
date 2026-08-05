@@ -13,12 +13,14 @@ import com.example.coreris.repository.TechnicianRepository;
 import com.example.coreris.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
     private final UserRepository userRepository;
     private final ReceptionistRepository receptionistRepository;
@@ -46,6 +48,9 @@ public class UserService {
         }
         UserDto response = modelMapper.map(savedUser, UserDto.class);
         response.setName(userDto.getName()); // Set the name back
+
+        log.info("Administrator created new staff user account: '{}' with role: {}", userDto.getUsername(), userDto.getRole());
+
         return response;
     }
 
@@ -73,6 +78,9 @@ public class UserService {
         // Map User entity to UserDto, then set the retrieved name
         UserDto userDto = modelMapper.map(user, UserDto.class);
         userDto.setName(name);
+
+        log.debug("Fetching user profile details for ID: {}", id);
+
         return userDto;
     }
 }

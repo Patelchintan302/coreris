@@ -12,6 +12,7 @@ import com.example.coreris.repository.ScanResultRepository;
 import com.example.coreris.repository.TechnicianRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +21,7 @@ import com.example.coreris.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ScanResultService {
     private final ScanResultRepository scanResultRepository;
     private final TechnicianRepository technicianRepository;
@@ -30,6 +32,9 @@ public class ScanResultService {
 
     @Transactional
     public ScanResultDto createScanResult(Long appointmentId, Long technicianId, MultipartFile file, ScanResultCreateDto scanResultCreateDto) {
+
+        log.info("Technician ID {} uploaded a new scan result for Appointment ID: {}", technicianId, appointmentId);
+
         Appointment appointment = appointmentRepository
                 .findById(appointmentId)
                 .orElseThrow(() -> new AppointmentNotFoundException(appointmentId));
@@ -53,26 +58,44 @@ public class ScanResultService {
         ScanResult savedScanResult = scanResultRepository.save(scanResult);
         ScanResultDto scanResultDto = modelMapper.map(savedScanResult, ScanResultDto.class);
         scanResultDto.setAppointmentId(appointmentId);
+
+        log.info("uploaded a new scan result for Appointment ID: {} is saved in database", appointmentId);
+
         return scanResultDto;
     }
 
     public ScanResultDto getScanResultById(Long id) {
+
+        log.debug("trying to Fetch details of scan result ID: {}", id);
+
         ScanResult scanResult = scanResultRepository.findById(id).orElseThrow(() -> new ScanResultNotFoundException(id));
         ScanResultDto scanResultDto = modelMapper.map(scanResult, ScanResultDto.class);
         scanResultDto.setAppointmentId(scanResult.getAppointment().getId());
+
+        log.debug("Fetching details of scan result ID: {}", id);
+
         return scanResultDto;
     }
 
     public ScanResultDto getScanResultByAppointmentId(Long appointmentId){
+
+        log.debug("trying to Fetch scan result details for Appointment ID: {}", appointmentId);
+
         appointmentRepository.findById(appointmentId).orElseThrow(() -> new AppointmentNotFoundException(appointmentId));
         ScanResult scanResult = scanResultRepository.findByAppointmentId(appointmentId).orElseThrow(() -> new ScanResultNotFoundException("Scan Result not found with AppointmentId : " + appointmentId));
         ScanResultDto scanResultDto = modelMapper.map(scanResult, ScanResultDto.class);
         scanResultDto.setAppointmentId(appointmentId);
+
+        log.debug("Fetching scan result details for Appointment ID: {}", appointmentId);
+
         return scanResultDto;
     }
 
     @Transactional
     public ScanResultDto updateScanResult(Long appointmentId, MultipartFile file, ScanResultCreateDto scanResultCreateDto) {
+
+        log.info("Technician trying to update scan result (new file: {}) for Appointment ID: {}", (file != null && !file.isEmpty()), appointmentId);
+
         ScanResult scanResult = scanResultRepository.findByAppointmentId(appointmentId)
                 .orElseThrow(() -> new ScanResultNotFoundException("Scan Result not found for appointment: " + appointmentId));
         if(file != null && !file.isEmpty()){
@@ -90,6 +113,7 @@ public class ScanResultService {
 
         ScanResultDto scanResultDto = modelMapper.map(savedScanResult, ScanResultDto.class);
         scanResultDto.setAppointmentId(appointmentId);
+        log.info("Technician updated scan result (new file: {}) for Appointment ID: {}", (file != null && !file.isEmpty()), appointmentId);
         return scanResultDto;
     }
 
@@ -116,6 +140,9 @@ public class ScanResultService {
         ScanResult savedScanResult = scanResultRepository.save(scanResult);
         ScanResultDto scanResultDto = modelMapper.map(savedScanResult, ScanResultDto.class);
         scanResultDto.setAppointmentId(appointmentId);
+
+        log.info("Database Seeder created mock scan result for Appointment ID: {}", appointmentId);
+
         return scanResultDto;
     }
 

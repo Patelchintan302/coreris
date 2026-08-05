@@ -6,6 +6,7 @@ import com.example.coreris.exception_handler.PatientNotFoundException;
 import com.example.coreris.repository.PatientRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,12 +17,14 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PatientService {
 
     private final PatientRepository patientRepository;
     private final ModelMapper modelMapper;
     @Transactional
     public Page<PatientDto> getAllPatients(Pageable pageable){
+        log.debug("Fetching paginated patients list. Page: {}, Size: {}", pageable.getPageNumber(), pageable.getPageSize());
         return patientRepository.findAll(pageable)
                 .map(patient -> modelMapper.map(patient, PatientDto.class));
     }
@@ -29,12 +32,14 @@ public class PatientService {
     @Transactional
     public PatientDto getPatientById(Long id){
         Patient patient = patientRepository.findById(id).orElseThrow(() -> new PatientNotFoundException(id));
+        log.debug("Fetching database details for Patient ID: {}", id);
         return modelMapper.map(patient,PatientDto.class);
     }
     @Transactional
     public PatientDto createPatient(PatientDto patientDto){
-        Patient save = patientRepository.save(modelMapper.map(patientDto,Patient.class));
-        return modelMapper.map(save,PatientDto.class);
+        Patient savedPatient = patientRepository.save(modelMapper.map(patientDto,Patient.class));
+        log.info("Registered new patient: '{}' (Email: {}, Mobile: {})", savedPatient.getName(), savedPatient.getEmail(), savedPatient.getMobileNo());
+        return modelMapper.map(savedPatient,PatientDto.class);
     }
 
     @Transactional
@@ -66,6 +71,7 @@ public class PatientService {
                                     .build();
                         }
                 ).collect(Collectors.toList());
+        log.info("Receptionist/Doctor requested clinical history for Patient ID: {}", patientId);
 
         return PatientHistoryDto.builder()
                 .id(patient.getId())

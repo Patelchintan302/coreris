@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.slf4j.MDC;
 
 import java.io.IOException;
 @Component
@@ -37,27 +38,33 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         final String jwt = authHeader.substring(7); // sp note :- removing "Bearer " prefix to get remaining jwt token
         final String username = jwtService.extractUsername(jwt);
+        try {
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-        if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
+                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username); // sp note :- lode user details from the DB
 
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username); // sp note :- lode user details from the DB
+                if (jwtService.isTokenValid(jwt, userDetails)) {//sp note :- check whether the token is expired and user matches the token in defined in JwtService
+                    //sp note :- create auth token containing user, credentials and authorities or role
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                            userDetails,
+                            null,
+                            userDetails.getAuthorities()
+                    );
 
-            if(jwtService.isTokenValid(jwt, userDetails)) {//sp note :- check whether the token is expired and user matches the token in defined in JwtService
-                //sp note :- create auth token containing user, credentials and authorities or role
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails,
-                        null,
-                        userDetails.getAuthorities()
-                );
+                    //sp note :- attach details of http request to authToken
+                    authToken.setDetails(
+                            new WebAuthenticationDetailsSource().buildDetails(request)
+                    );
+                    //sp note :- Authenticate the user by placing them into the SecurityContextHolder
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
 
-                //sp note :- attach details of http request to authToken
-                authToken.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(request)
-                );
-                //sp note :- Authenticate the user by placing them into the SecurityContextHolder
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+                    //Store the logged-in username in MDC context
+                    MDC.put("username", username);
+                }
             }
+            filterChain.doFilter(request, response);
+        } finally {
+            MDC.clear();
         }
-        filterChain.doFilter(request,response);
     }
 }
