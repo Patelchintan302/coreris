@@ -32,8 +32,12 @@ public class Report {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
-    @JoinColumn(name = "radiologist_id", nullable = false)
+    @JoinColumn(name = "radiologist_id", nullable = true)
     private Radiologist radiologist;
+
+    @ToString.Exclude
+    @Column(name = "admin_id", nullable = true)
+    private Long adminId;
 
     @PrePersist
     protected void onCreate() {

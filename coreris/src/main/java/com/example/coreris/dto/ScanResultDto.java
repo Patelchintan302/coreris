@@ -13,5 +13,6 @@ public class ScanResultDto {
     private String imageUrl;
     private LocalDateTime capturedAt;
     private TechnicianDto technician;
+    private Long adminId;
     private Long appointmentId;
 }

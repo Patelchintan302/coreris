@@ -14,5 +14,6 @@ public class ReportDto {
 //    private String diagnosis;
     private LocalDateTime createdAt;
     private RadiologistDto radiologist;
+    private Long adminId;
     private Long appointmentId;
 }

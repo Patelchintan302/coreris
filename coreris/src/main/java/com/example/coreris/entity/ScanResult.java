@@ -29,8 +29,12 @@ public class ScanResult {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
-    @JoinColumn(name = "technician_id", nullable = false)
+    @JoinColumn(name = "technician_id", nullable = true)
     private Technician technician;
+
+    @ToString.Exclude
+    @Column(name = "admin_id", nullable = true)
+    private Long adminId;
 
     @PrePersist
     protected void onCreate() {

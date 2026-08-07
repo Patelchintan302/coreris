@@ -33,15 +33,19 @@ public class ScanResultService {
     @Transactional
     public ScanResultDto createScanResult(Long appointmentId, Long technicianId, MultipartFile file, ScanResultCreateDto scanResultCreateDto) {
 
-        log.info("Technician ID {} uploaded a new scan result for Appointment ID: {}", technicianId, appointmentId);
-
         Appointment appointment = appointmentRepository
                 .findById(appointmentId)
                 .orElseThrow(() -> new AppointmentNotFoundException(appointmentId));
         Technician technician = technicianRepository
                 .findById(technicianId)
-                .orElseThrow(() -> new UserNotFoundException(technicianId));
-
+                .orElse(null);
+        Long adminId= null;
+        if(technician == null){
+            log.info("Administrator ID {} uploaded a new scan result for Appointment ID: {}", technicianId, appointmentId);
+            adminId = technicianId;
+        }else {
+            log.info("Technician ID {} uploaded a new scan result for Appointment ID: {}", technicianId, appointmentId);
+        }
         String fileName = fileStorageService.storeFile(file);
         String fileDownloadUrl = "/scans/download/" + fileName;
 
@@ -51,6 +55,7 @@ public class ScanResultService {
                 .appointment(appointment)
                 .imageUrl(fileDownloadUrl)
                 .technician(technician)
+                .adminId(adminId)
                 .build();
         //sp note:- status is changed now scan complete
         appointment.setStatus(StatusType.SCAN_COMPLETE);
@@ -120,18 +125,21 @@ public class ScanResultService {
     // 👈 ADD THIS OVERLOADED METHOD FOR THE DATABASE SEEDER (3 parameters)
     @Transactional
     public ScanResultDto createScanResult(Long appointmentId, Long technicianId, ScanResultCreateDto scanResultCreateDto) {
-        Appointment appointment = appointmentRepository
-                .findById(appointmentId)
+        Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new AppointmentNotFoundException(appointmentId));
-        Technician technician = technicianRepository
-                .findById(technicianId)
-                .orElseThrow(() -> new UserNotFoundException(technicianId));
+        Technician technician = technicianRepository.findById(technicianId)
+                .orElse(null);
+        Long adminId= null;
+        if(technician == null){
+            adminId = technicianId;
+        }
 
         ScanResult scanResult = ScanResult.builder()
                 .scanDetails(scanResultCreateDto.getScanDetails())
                 .appointment(appointment)
                 .imageUrl(scanResultCreateDto.getImageUrl()) // 👈 Uses the mock URL from the DTO directly
                 .technician(technician)
+                .adminId(adminId)
                 .build();
 
         appointment.setStatus(StatusType.SCAN_COMPLETE);

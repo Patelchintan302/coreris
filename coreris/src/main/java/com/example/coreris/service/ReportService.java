@@ -29,20 +29,24 @@ public class ReportService {
 
     @Transactional
     public ReportDto createReport(Long appointmentId, Long radiologistId,ReportCreateDto reportCreateDto) {
-
-        log.info("Radiologist ID {} trying to submit diagnostic report for Appointment ID: {}", radiologistId, appointmentId);
-
         Appointment appointment = appointmentRepository
                 .findById(appointmentId)
                 .orElseThrow(() -> new AppointmentNotFoundException(appointmentId));
         Radiologist radiologist = radiologistRepository
                 .findById(radiologistId)
-                .orElseThrow(() -> new UserNotFoundException(radiologistId));
-
+                .orElse(null);
+        Long adminId = null;
+        if(radiologist == null){
+            log.info("Administrator ID {} trying to submit diagnostic report for Appointment ID: {}", radiologistId, appointmentId);
+            adminId = radiologistId;
+        }else {
+            log.info("Radiologist ID {} trying to submit diagnostic report for Appointment ID: {}", radiologistId, appointmentId);
+        }
         Report report = Report.builder()
                 .finding(reportCreateDto.getFinding())
                 .appointment(appointment)
                 .radiologist(radiologist)
+                .adminId(adminId)
                 .build();
         //sp note:- status is changed now completed
         appointment.setStatus(StatusType.COMPLETED);
