@@ -7,6 +7,7 @@ import com.example.coreris.entity.Technician;
 import com.example.coreris.entity.User;
 import com.example.coreris.entity.type.RoleType;
 import com.example.coreris.exception_handler.UserNotFoundException;
+import com.example.coreris.exception_handler.UsernameAlreadyExistsException;
 import com.example.coreris.repository.RadiologistRepository;
 import com.example.coreris.repository.ReceptionistRepository;
 import com.example.coreris.repository.TechnicianRepository;
@@ -30,6 +31,12 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     @Transactional
     public UserDto createUser(UserDto userDto){
+
+        log.info("Administrator trying to created new staff user account: '{}' with role: {}", userDto.getUsername(), userDto.getRole());
+
+        if (userRepository.findByUsername(userDto.getUsername()).isPresent()) {
+            throw new UsernameAlreadyExistsException(userDto.getUsername());
+        }
         User user = modelMapper.map(userDto,User.class);
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         User savedUser = userRepository.save(user);
@@ -56,6 +63,9 @@ public class UserService {
 
     @Transactional
     public UserDto getUserById(Long id) {
+
+        log.debug("trying to Fetch user profile details for ID: {}", id);
+
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 

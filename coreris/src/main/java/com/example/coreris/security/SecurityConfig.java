@@ -28,6 +28,11 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers(
+                            "/",                   // Root redirect
+                            "/login",              // Public Login HTML Page
+                            "/dashboard",          // Public Dashboard HTML Page
+                            "/css/**",             // Public Static CSS
+                            "/js/**",              // Public Static JS
                             "/auth/**",            // Public login/register
                             "/v3/api-docs/**",     // Raw Swagger JSON/YAML
                             "/swagger-ui/**",      // Swagger UI resources
