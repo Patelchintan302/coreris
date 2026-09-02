@@ -39,6 +39,9 @@ public class Report {
     @Column(name = "admin_id", nullable = true)
     private Long adminId;
 
+    @Column(name = "pdf_url")
+    private String pdfUrl;
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();

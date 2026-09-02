@@ -26,6 +26,8 @@ public class ReportService {
     private final AppointmentRepository appointmentRepository;
     private final RadiologistRepository radiologistRepository;
     private final ModelMapper modelMapper;
+    private final PdfGeneratorService pdfGeneratorService;
+    private final FileStorageService fileStorageService;
 
     @Transactional
     public ReportDto createReport(Long appointmentId, Long radiologistId,ReportCreateDto reportCreateDto) {
@@ -42,11 +44,18 @@ public class ReportService {
         }else {
             log.info("Radiologist ID {} trying to submit diagnostic report for Appointment ID: {}", radiologistId, appointmentId);
         }
+
+        // Auto-generate clinical PDF
+        byte[] pdfBytes = pdfGeneratorService.generateReportPdf(appointment, reportCreateDto.getFinding(), radiologist, adminId);
+        String pdfFileName = fileStorageService.storeFile(pdfBytes, "report_" + appointmentId + ".pdf");
+        String pdfUrl = "/api/v1/reports/download/" + pdfFileName;
+
         Report report = Report.builder()
                 .finding(reportCreateDto.getFinding())
                 .appointment(appointment)
                 .radiologist(radiologist)
                 .adminId(adminId)
+                .pdfUrl(pdfUrl)
                 .build();
         //sp note:- status is changed now completed
         appointment.setStatus(StatusType.COMPLETED);
@@ -95,6 +104,17 @@ public class ReportService {
         Report report = reportRepository.findByAppointmentId(appointmentId)
                 .orElseThrow(() -> new ReportNotFoundException("Report not found for appointment: " + appointmentId));
         report.setFinding(reportCreateDto.getFinding());
+
+        // Delete old PDF from disk if present
+        if (report.getPdfUrl() != null) {
+            String oldFileName = report.getPdfUrl().substring(report.getPdfUrl().lastIndexOf("/") + 1);
+            fileStorageService.deleteFile(oldFileName);
+        }
+
+        // Regenerate updated PDF
+        byte[] pdfBytes = pdfGeneratorService.generateReportPdf(report.getAppointment(), reportCreateDto.getFinding(), report.getRadiologist(), report.getAdminId());
+        String newFileName = fileStorageService.storeFile(pdfBytes, "report_" + appointmentId + ".pdf");
+        report.setPdfUrl("/api/v1/reports/download/" + newFileName);
 
         Report savedReport = reportRepository.save(report);
 

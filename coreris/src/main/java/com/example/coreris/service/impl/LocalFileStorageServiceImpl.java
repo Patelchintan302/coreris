@@ -57,6 +57,28 @@ public class LocalFileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
+    public String storeFile(byte[] fileBytes, String originalFileName) {
+        String cleanFileName = StringUtils.cleanPath(originalFileName);
+        try {
+            if (cleanFileName.contains("..")) {
+                throw new FileStorageException("Filename contains invalid path sequence: " + cleanFileName);
+            }
+            String fileExtension = "";
+            if (cleanFileName.contains(".")) {
+                fileExtension = cleanFileName.substring(cleanFileName.lastIndexOf("."));
+            }
+            String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
+
+            Path targetLocation = this.fileStorageLocation.resolve(uniqueFileName);
+            Files.write(targetLocation, fileBytes);
+
+            return uniqueFileName;
+        } catch (IOException ex) {
+            throw new FileStorageException("Could not store file " + cleanFileName + ". Please try again!", ex);
+        }
+    }
+
+    @Override
     public Resource loadFileAsResource(String fileName) {
         try{
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();

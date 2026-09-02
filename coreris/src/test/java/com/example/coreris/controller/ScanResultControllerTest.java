@@ -2,6 +2,7 @@ package com.example.coreris.controller;
 
 import com.example.coreris.dto.ScanResultCreateDto;
 import com.example.coreris.dto.ScanResultDto;
+import com.example.coreris.service.FileStorageService;
 import com.example.coreris.service.ScanResultService;
 import tools.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,9 @@ public class ScanResultControllerTest {
 
     @MockitoBean
     private ScanResultService scanResultService;
+
+    @MockitoBean
+    private FileStorageService fileStorageService;
 
     @Test
     public void testCreateScanResultSuccess() throws Exception {

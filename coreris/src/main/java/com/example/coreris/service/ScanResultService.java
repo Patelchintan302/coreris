@@ -47,7 +47,7 @@ public class ScanResultService {
             log.info("Technician ID {} uploaded a new scan result for Appointment ID: {}", technicianId, appointmentId);
         }
         String fileName = fileStorageService.storeFile(file);
-        String fileDownloadUrl = "/scans/download/" + fileName;
+        String fileDownloadUrl = "/api/v1/scans/download/" + fileName;
 
 
         ScanResult scanResult = ScanResult.builder()
@@ -110,7 +110,7 @@ public class ScanResultService {
                 fileStorageService.deleteFile(oldFileName);
             }
             String newFileName = fileStorageService.storeFile(file);
-            scanResult.setImageUrl(newFileName);
+            scanResult.setImageUrl("/api/v1/scans/download/" + newFileName);
         }
         scanResult.setScanDetails(scanResultCreateDto.getScanDetails());
 

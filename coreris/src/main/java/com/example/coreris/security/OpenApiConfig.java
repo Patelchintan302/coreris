@@ -13,9 +13,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenApiConfig {
 
-//    static {
-//        SpringDocUtils.getConfig().addRequestWrapperToIgnore(User.class);
-//    }
+    static {
+        SpringDocUtils.getConfig().addRequestWrapperToIgnore(User.class);
+    }
 
     @Bean
     public OpenAPI customOpenAPI() {

@@ -3,10 +3,15 @@ package com.example.coreris.controller;
 import com.example.coreris.dto.ReportCreateDto;
 import com.example.coreris.dto.ReportDto;
 import com.example.coreris.entity.User;
+import com.example.coreris.service.FileStorageService;
 import com.example.coreris.service.ReportService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ReportController {
     private final ReportService reportService;
+    private final FileStorageService fileStorageService;
 
     //sp note :- accessible to any authenticated user
     @GetMapping("/appointments/{id}/report")
@@ -55,5 +61,20 @@ public class ReportController {
     ) {
         ReportDto updated = reportService.updateReport(appointmentId, reportCreateDto);
         return ResponseEntity.ok(updated);
+    }
+
+    //sp note :- accessible to any authenticated user
+    @GetMapping(value = "/reports/download/{fileName:.+}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<Resource> downloadReportPdf(@PathVariable String fileName, HttpServletRequest request) {
+        Resource resource = fileStorageService.loadFileAsResource(fileName);
+        String contentType = request.getServletContext().getMimeType(fileName);
+        if (contentType == null) {
+            contentType = "application/pdf";
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
     }
 }

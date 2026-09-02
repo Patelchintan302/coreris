@@ -36,7 +36,9 @@ public class SecurityConfig {
                             "/auth/**",            // Public login/register
                             "/v3/api-docs/**",     // Raw Swagger JSON/YAML
                             "/swagger-ui/**",      // Swagger UI resources
-                            "/swagger-ui.html"     // Swagger UI console page
+                            "/swagger-ui.html",    // Swagger UI console page
+                            "/reports/download/**",// Direct download & view of PDF reports
+                            "/scans/download/**"   // Direct view of scan images
                     ).permitAll()
                     .anyRequest().authenticated() // 1. Require authentication for everything
             )
