@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -92,5 +93,33 @@ public class UserService {
         log.debug("Fetching user profile details for ID: {}", id);
 
         return userDto;
+    }
+
+    public List<UserDto> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(user -> {
+                    String name = user.getUsername();
+                    if (user.getRole() == RoleType.RECEPTIONIST) {
+                        name = receptionistRepository.findById(user.getId()).map(Receptionist::getName).orElse(user.getUsername());
+                    } else if (user.getRole() == RoleType.TECHNICIAN) {
+                        name = technicianRepository.findById(user.getId()).map(Technician::getName).orElse(user.getUsername());
+                    } else if (user.getRole() == RoleType.RADIOLOGIST) {
+                        name = radiologistRepository.findById(user.getId()).map(Radiologist::getName).orElse(user.getUsername());
+                    }
+                    UserDto dto = modelMapper.map(user, UserDto.class);
+                    dto.setName(name);
+                    dto.setPassword(null);
+                    return dto;
+                })
+                .toList();
+    }
+
+    @Transactional
+    public void deleteUser(Long id) {
+        log.info("Administrator attempting to delete user ID: {}", id);
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+        userRepository.delete(user);
+        log.info("Administrator deleted user ID: {}", id);
     }
 }

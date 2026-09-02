@@ -1,0 +1,193 @@
+2026-08-08 17:45:08 [main] INFO  c.example.coreris.CorerisApplication [User: ] - Starting CorerisApplication using Java 25.0.1 with PID 29452 (C:\Users\patel\Desktop\coreris\coreris\target\classes started by patel in C:\Users\patel\Desktop\coreris)
+2026-08-08 17:45:08 [main] INFO  c.example.coreris.CorerisApplication [User: ] - No active profile set, falling back to 1 default profile: "default"
+2026-08-08 17:45:08 [background-preinit] INFO  o.h.validator.internal.util.Version [User: ] - HV000001: Hibernate Validator 9.1.0.Final
+2026-08-08 17:45:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [User: ] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-08 17:45:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [User: ] - Finished Spring Data repository scanning in 52 ms. Found 8 JPA repository interfaces.
+2026-08-08 17:45:09 [main] INFO  o.s.boot.tomcat.TomcatWebServer [User: ] - Tomcat initialized with port 8080 (http)
+2026-08-08 17:45:09 [main] INFO  o.a.coyote.http11.Http11NioProtocol [User: ] - Initializing ProtocolHandler ["http-nio-8080"]
+2026-08-08 17:45:09 [main] INFO  o.a.catalina.core.StandardService [User: ] - Starting service [Tomcat]
+2026-08-08 17:45:09 [main] INFO  o.a.catalina.core.StandardEngine [User: ] - Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-08-08 17:45:09 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer [User: ] - Root WebApplicationContext: initialization completed in 1564 ms
+2026-08-08 17:45:09 [main] INFO  org.hibernate.orm.jpa [User: ] - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-08 17:45:09 [main] INFO  org.hibernate.orm.core [User: ] - HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-08-08 17:45:10 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo [User: ] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-08 17:45:10 [main] INFO  com.zaxxer.hikari.HikariDataSource [User: ] - HikariPool-1 - Starting...
+2026-08-08 17:45:10 [main] INFO  com.zaxxer.hikari.pool.HikariPool [User: ] - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@49f50c8f
+2026-08-08 17:45:10 [main] INFO  com.zaxxer.hikari.HikariDataSource [User: ] - HikariPool-1 - Start completed.
+2026-08-08 17:45:10 [main] INFO  o.hibernate.orm.connections.pooling [User: ] - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/ris_db?options=-c%20timezone=Asia/Kolkata]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 18.4
+	Default catalog/schema: ris_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-08 17:45:11 [main] INFO  org.hibernate.orm.core [User: ] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-08 17:45:11 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [User: ] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-08 17:45:11 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories [User: ] - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-08 17:45:12 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer [User: ] - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-08-08 17:45:12 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration [User: ] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-08 17:45:12 [main] INFO  o.a.coyote.http11.Http11NioProtocol [User: ] - Starting ProtocolHandler ["http-nio-8080"]
+2026-08-08 17:45:12 [main] INFO  o.s.boot.tomcat.TomcatWebServer [User: ] - Tomcat started on port 8080 (http) with context path '/'
+2026-08-08 17:45:12 [main] INFO  c.example.coreris.CorerisApplication [User: ] - Started CorerisApplication in 5.325 seconds (process running for 5.728)
+2026-08-08 17:45:13 [main] INFO  c.e.coreris.service.UserService [User: ] - Administrator created new staff user account: 'user1' with role: TECHNICIAN
+2026-08-08 17:45:13 [main] INFO  c.e.coreris.service.UserService [User: ] - Administrator created new staff user account: 'user2' with role: RADIOLOGIST
+2026-08-08 17:45:13 [main] INFO  c.e.coreris.service.UserService [User: ] - Administrator created new staff user account: 'user3' with role: RECEPTIONIST
+2026-08-08 17:45:13 [main] INFO  c.e.coreris.service.UserService [User: ] - Administrator created new staff user account: 'user0' with role: ADMIN
+2026-08-08 17:45:13 [main] INFO  c.e.coreris.service.PatientService [User: ] - Registered new patient: 'Robert Brown' (Email: robert.brown@example.com, Mobile: 9876543210)
+2026-08-08 17:45:13 [main] INFO  c.e.coreris.service.PatientService [User: ] - Registered new patient: 'Sarah Connor' (Email: sarah.connor@example.com, Mobile: 8765432109)
+2026-08-08 17:45:13 [main] INFO  c.e.c.service.AppointmentService [User: ] - trying to Book new appointment for Patient ID: 1
+2026-08-08 17:45:13 [main] INFO  c.e.c.service.AppointmentService [User: ] - Booked new CT_SCAN appointment for Patient ID: 1
+2026-08-08 17:45:13 [main] INFO  c.e.c.service.AppointmentService [User: ] - trying to Book new appointment for Patient ID: 2
+2026-08-08 17:45:13 [main] INFO  c.e.c.service.AppointmentService [User: ] - Booked new XRAY_SCAN appointment for Patient ID: 2
+2026-08-08 17:45:13 [main] INFO  c.e.c.service.ScanResultService [User: ] - Database Seeder created mock scan result for Appointment ID: 1
+2026-08-08 17:45:13 [main] INFO  c.e.coreris.service.ReportService [User: ] - Radiologist ID 2 trying to submit diagnostic report for Appointment ID: 1
+2026-08-08 17:45:13 [main] INFO  c.e.coreris.service.ReportService [User: ] - submitted diagnostic report for Appointment ID: 1
+2026-08-08 17:45:13 [main] INFO  c.e.c.service.ScanResultService [User: ] - Database Seeder created mock scan result for Appointment ID: 2
+2026-08-08 17:45:22 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] [User: ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-08 17:45:22 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet [User: ] - Initializing Servlet 'dispatcherServlet'
+2026-08-08 17:45:22 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet [User: ] - Completed initialization in 0 ms
+2026-08-08 17:45:54 [http-nio-8080-exec-4] INFO  c.e.coreris.security.AuthController [User: ] - User 'user0' successfully authenticated with role: ROLE_ADMIN
+2026-08-08 17:46:25 [http-nio-8080-exec-4] INFO  c.e.coreris.security.AuthController [User: ] - User 'user1' successfully authenticated with role: ROLE_TECHNICIAN
+2026-08-08 17:46:49 [http-nio-8080-exec-3] INFO  c.e.coreris.security.AuthController [User: ] - User 'user3' successfully authenticated with role: ROLE_RECEPTIONIST
+2026-08-08 17:46:49 [http-nio-8080-exec-6] WARN  o.s.d.w.c.SpringDataJackson3Configuration$PageModule$WarningLoggingModifier [User: user3] - Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2026-08-08 17:53:24 [http-nio-8080-exec-2] INFO  c.e.coreris.security.AuthController [User: ] - User 'user2' successfully authenticated with role: ROLE_RADIOLOGIST
+2026-08-08 17:54:13 [http-nio-8080-exec-2] INFO  c.e.coreris.security.AuthController [User: ] - User 'user0' successfully authenticated with role: ROLE_ADMIN
+2026-08-08 17:54:20 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown [User: ] - Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-08 17:54:20 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown [User: ] - Graceful shutdown complete
+2026-08-08 17:54:20 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [User: ] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-08 17:54:20 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource [User: ] - HikariPool-1 - Shutdown initiated...
+2026-08-08 17:54:20 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource [User: ] - HikariPool-1 - Shutdown completed.
+2026-08-08 17:54:54 [main] INFO  c.example.coreris.CorerisApplication [User: ] - Starting CorerisApplication using Java 25.0.1 with PID 14236 (C:\Users\patel\Desktop\coreris\coreris\target\classes started by patel in C:\Users\patel\Desktop\coreris)
+2026-08-08 17:54:54 [main] INFO  c.example.coreris.CorerisApplication [User: ] - No active profile set, falling back to 1 default profile: "default"
+2026-08-08 17:54:54 [background-preinit] INFO  o.h.validator.internal.util.Version [User: ] - HV000001: Hibernate Validator 9.1.0.Final
+2026-08-08 17:54:55 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [User: ] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-08 17:54:55 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [User: ] - Finished Spring Data repository scanning in 52 ms. Found 8 JPA repository interfaces.
+2026-08-08 17:54:56 [main] INFO  o.s.boot.tomcat.TomcatWebServer [User: ] - Tomcat initialized with port 8080 (http)
+2026-08-08 17:54:56 [main] INFO  o.a.coyote.http11.Http11NioProtocol [User: ] - Initializing ProtocolHandler ["http-nio-8080"]
+2026-08-08 17:54:56 [main] INFO  o.a.catalina.core.StandardService [User: ] - Starting service [Tomcat]
+2026-08-08 17:54:56 [main] INFO  o.a.catalina.core.StandardEngine [User: ] - Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-08-08 17:54:56 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer [User: ] - Root WebApplicationContext: initialization completed in 1644 ms
+2026-08-08 17:54:56 [main] INFO  org.hibernate.orm.jpa [User: ] - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-08 17:54:56 [main] INFO  org.hibernate.orm.core [User: ] - HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-08-08 17:54:57 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo [User: ] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-08 17:54:57 [main] INFO  com.zaxxer.hikari.HikariDataSource [User: ] - HikariPool-1 - Starting...
+2026-08-08 17:54:57 [main] INFO  com.zaxxer.hikari.pool.HikariPool [User: ] - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3749c2b
+2026-08-08 17:54:57 [main] INFO  com.zaxxer.hikari.HikariDataSource [User: ] - HikariPool-1 - Start completed.
+2026-08-08 17:54:57 [main] INFO  o.hibernate.orm.connections.pooling [User: ] - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/ris_db?options=-c%20timezone=Asia/Kolkata]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 18.4
+	Default catalog/schema: ris_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-08 17:54:59 [main] INFO  org.hibernate.orm.core [User: ] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-08 17:55:00 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [User: ] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-08 17:55:00 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories [User: ] - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-08 17:55:01 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer [User: ] - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-08-08 17:55:01 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration [User: ] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-08 17:55:03 [main] INFO  o.a.coyote.http11.Http11NioProtocol [User: ] - Starting ProtocolHandler ["http-nio-8080"]
+2026-08-08 17:55:03 [main] INFO  o.s.boot.tomcat.TomcatWebServer [User: ] - Tomcat started on port 8080 (http) with context path '/'
+2026-08-08 17:55:03 [main] INFO  c.example.coreris.CorerisApplication [User: ] - Started CorerisApplication in 9.001 seconds (process running for 9.607)
+2026-08-08 17:55:03 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] [User: ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-08 17:55:03 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet [User: ] - Initializing Servlet 'dispatcherServlet'
+2026-08-08 17:55:03 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet [User: ] - Completed initialization in 1 ms
+2026-08-08 17:55:04 [main] INFO  c.e.coreris.service.UserService [User: ] - Administrator created new staff user account: 'user1' with role: TECHNICIAN
+2026-08-08 17:55:04 [main] INFO  c.e.coreris.service.UserService [User: ] - Administrator created new staff user account: 'user2' with role: RADIOLOGIST
+2026-08-08 17:55:04 [main] INFO  c.e.coreris.service.UserService [User: ] - Administrator created new staff user account: 'user3' with role: RECEPTIONIST
+2026-08-08 17:55:04 [main] INFO  c.e.coreris.service.UserService [User: ] - Administrator created new staff user account: 'user0' with role: ADMIN
+2026-08-08 17:55:04 [main] INFO  c.e.coreris.service.PatientService [User: ] - Registered new patient: 'Robert Brown' (Email: robert.brown@example.com, Mobile: 9876543210)
+2026-08-08 17:55:04 [main] INFO  c.e.coreris.service.PatientService [User: ] - Registered new patient: 'Sarah Connor' (Email: sarah.connor@example.com, Mobile: 8765432109)
+2026-08-08 17:55:04 [main] INFO  c.e.c.service.AppointmentService [User: ] - trying to Book new appointment for Patient ID: 1
+2026-08-08 17:55:04 [main] INFO  c.e.c.service.AppointmentService [User: ] - Booked new CT_SCAN appointment for Patient ID: 1
+2026-08-08 17:55:05 [main] INFO  c.e.c.service.AppointmentService [User: ] - trying to Book new appointment for Patient ID: 2
+2026-08-08 17:55:05 [main] INFO  c.e.c.service.AppointmentService [User: ] - Booked new XRAY_SCAN appointment for Patient ID: 2
+2026-08-08 17:55:05 [main] INFO  c.e.c.service.ScanResultService [User: ] - Database Seeder created mock scan result for Appointment ID: 1
+2026-08-08 17:55:05 [main] INFO  c.e.coreris.service.ReportService [User: ] - Radiologist ID 2 trying to submit diagnostic report for Appointment ID: 1
+2026-08-08 17:55:05 [main] INFO  c.e.coreris.service.ReportService [User: ] - submitted diagnostic report for Appointment ID: 1
+2026-08-08 17:55:05 [main] INFO  c.e.c.service.ScanResultService [User: ] - Database Seeder created mock scan result for Appointment ID: 2
+2026-08-08 17:55:14 [http-nio-8080-exec-6] INFO  c.e.coreris.security.AuthController [User: ] - User 'user0' successfully authenticated with role: ROLE_ADMIN
+2026-08-08 17:55:42 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown [User: ] - Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-08 17:55:42 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown [User: ] - Graceful shutdown complete
+2026-08-08 17:55:42 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [User: ] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-08 17:55:42 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource [User: ] - HikariPool-1 - Shutdown initiated...
+2026-08-08 17:55:42 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource [User: ] - HikariPool-1 - Shutdown completed.
+2026-08-08 17:56:49 [main] INFO  c.example.coreris.CorerisApplication [User: ] - Starting CorerisApplication using Java 25.0.1 with PID 20112 (C:\Users\patel\Desktop\coreris\coreris\target\classes started by patel in C:\Users\patel\Desktop\coreris)
+2026-08-08 17:56:49 [main] INFO  c.example.coreris.CorerisApplication [User: ] - No active profile set, falling back to 1 default profile: "default"
+2026-08-08 17:56:49 [background-preinit] INFO  o.h.validator.internal.util.Version [User: ] - HV000001: Hibernate Validator 9.1.0.Final
+2026-08-08 17:56:50 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [User: ] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-08 17:56:50 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [User: ] - Finished Spring Data repository scanning in 47 ms. Found 8 JPA repository interfaces.
+2026-08-08 17:56:50 [main] INFO  o.s.boot.tomcat.TomcatWebServer [User: ] - Tomcat initialized with port 8080 (http)
+2026-08-08 17:56:50 [main] INFO  o.a.coyote.http11.Http11NioProtocol [User: ] - Initializing ProtocolHandler ["http-nio-8080"]
+2026-08-08 17:56:50 [main] INFO  o.a.catalina.core.StandardService [User: ] - Starting service [Tomcat]
+2026-08-08 17:56:50 [main] INFO  o.a.catalina.core.StandardEngine [User: ] - Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-08-08 17:56:50 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer [User: ] - Root WebApplicationContext: initialization completed in 1378 ms
+2026-08-08 17:56:51 [main] INFO  org.hibernate.orm.jpa [User: ] - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-08 17:56:51 [main] INFO  org.hibernate.orm.core [User: ] - HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-08-08 17:56:51 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo [User: ] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-08 17:56:51 [main] INFO  com.zaxxer.hikari.HikariDataSource [User: ] - HikariPool-1 - Starting...
+2026-08-08 17:56:51 [main] INFO  com.zaxxer.hikari.pool.HikariPool [User: ] - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3749c2b
+2026-08-08 17:56:51 [main] INFO  com.zaxxer.hikari.HikariDataSource [User: ] - HikariPool-1 - Start completed.
+2026-08-08 17:56:51 [main] INFO  o.hibernate.orm.connections.pooling [User: ] - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/ris_db?options=-c%20timezone=Asia/Kolkata]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 18.4
+	Default catalog/schema: ris_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-08 17:56:52 [main] INFO  org.hibernate.orm.core [User: ] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-08 17:56:52 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [User: ] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-08 17:56:53 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories [User: ] - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-08 17:56:53 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer [User: ] - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-08-08 17:56:53 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration [User: ] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-08 17:56:54 [main] INFO  o.a.coyote.http11.Http11NioProtocol [User: ] - Starting ProtocolHandler ["http-nio-8080"]
+2026-08-08 17:56:54 [main] INFO  o.s.boot.tomcat.TomcatWebServer [User: ] - Tomcat started on port 8080 (http) with context path '/'
+2026-08-08 17:56:54 [main] INFO  c.example.coreris.CorerisApplication [User: ] - Started CorerisApplication in 4.925 seconds (process running for 5.349)
+2026-08-08 17:56:54 [main] INFO  c.e.coreris.service.UserService [User: ] - Administrator trying to created new staff user account: 'user1' with role: TECHNICIAN
+2026-08-08 17:56:54 [main] INFO  c.e.coreris.service.UserService [User: ] - Administrator created new staff user account: 'user1' with role: TECHNICIAN
+2026-08-08 17:56:54 [main] INFO  c.e.coreris.service.UserService [User: ] - Administrator trying to created new staff user account: 'user2' with role: RADIOLOGIST
+2026-08-08 17:56:54 [main] INFO  c.e.coreris.service.UserService [User: ] - Administrator created new staff user account: 'user2' with role: RADIOLOGIST
+2026-08-08 17:56:54 [main] INFO  c.e.coreris.service.UserService [User: ] - Administrator trying to created new staff user account: 'user3' with role: RECEPTIONIST
+2026-08-08 17:56:54 [main] INFO  c.e.coreris.service.UserService [User: ] - Administrator created new staff user account: 'user3' with role: RECEPTIONIST
+2026-08-08 17:56:54 [main] INFO  c.e.coreris.service.UserService [User: ] - Administrator trying to created new staff user account: 'user0' with role: ADMIN
+2026-08-08 17:56:54 [main] INFO  c.e.coreris.service.UserService [User: ] - Administrator created new staff user account: 'user0' with role: ADMIN
+2026-08-08 17:56:54 [main] INFO  c.e.coreris.service.PatientService [User: ] - Registered new patient: 'Robert Brown' (Email: robert.brown@example.com, Mobile: 9876543210)
+2026-08-08 17:56:54 [main] INFO  c.e.coreris.service.PatientService [User: ] - Registered new patient: 'Sarah Connor' (Email: sarah.connor@example.com, Mobile: 8765432109)
+2026-08-08 17:56:54 [main] INFO  c.e.c.service.AppointmentService [User: ] - trying to Book new appointment for Patient ID: 1
+2026-08-08 17:56:54 [main] INFO  c.e.c.service.AppointmentService [User: ] - Booked new CT_SCAN appointment for Patient ID: 1
+2026-08-08 17:56:54 [main] INFO  c.e.c.service.AppointmentService [User: ] - trying to Book new appointment for Patient ID: 2
+2026-08-08 17:56:54 [main] INFO  c.e.c.service.AppointmentService [User: ] - Booked new XRAY_SCAN appointment for Patient ID: 2
+2026-08-08 17:56:54 [main] INFO  c.e.c.service.ScanResultService [User: ] - Database Seeder created mock scan result for Appointment ID: 1
+2026-08-08 17:56:54 [main] INFO  c.e.coreris.service.ReportService [User: ] - Radiologist ID 2 trying to submit diagnostic report for Appointment ID: 1
+2026-08-08 17:56:54 [main] INFO  c.e.coreris.service.ReportService [User: ] - submitted diagnostic report for Appointment ID: 1
+2026-08-08 17:56:54 [main] INFO  c.e.c.service.ScanResultService [User: ] - Database Seeder created mock scan result for Appointment ID: 2
+2026-08-08 17:57:10 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] [User: ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-08 17:57:10 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet [User: ] - Initializing Servlet 'dispatcherServlet'
+2026-08-08 17:57:10 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet [User: ] - Completed initialization in 4 ms
+2026-08-08 17:57:20 [http-nio-8080-exec-6] INFO  c.e.coreris.security.AuthController [User: ] - User 'user0' successfully authenticated with role: ROLE_ADMIN
+2026-08-08 17:57:26 [http-nio-8080-exec-1] INFO  c.e.coreris.service.UserService [User: user0] - Administrator trying to created new staff user account: 'user1' with role: RECEPTIONIST
+2026-08-08 17:58:05 [http-nio-8080-exec-6] INFO  c.e.coreris.security.AuthController [User: ] - User 'user0' successfully authenticated with role: ROLE_ADMIN
+2026-08-08 17:58:13 [http-nio-8080-exec-1] INFO  c.e.coreris.service.UserService [User: user0] - Administrator trying to created new staff user account: 'user5' with role: RECEPTIONIST
+2026-08-08 17:58:13 [http-nio-8080-exec-1] INFO  c.e.coreris.service.UserService [User: user0] - Administrator created new staff user account: 'user5' with role: RECEPTIONIST
+2026-08-08 17:58:50 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown [User: ] - Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-08 17:58:50 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown [User: ] - Graceful shutdown complete
+2026-08-08 17:58:51 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [User: ] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-08 17:58:51 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource [User: ] - HikariPool-1 - Shutdown initiated...
+2026-08-08 17:58:51 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource [User: ] - HikariPool-1 - Shutdown completed.
